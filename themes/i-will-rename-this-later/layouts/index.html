@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Main Page</title>
-</head>
-<body>
-  Welcome to CompSoc Cookbooks, this is the MAIN page.
-  {{ range first 10 (where .Site.RegularPages.ByPublishDate "Type" "post") }}
-  <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-  <time>{{ .Date.Format "2 Jan, 2006" }}</time>
-{{ end }}
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Main Page</title>
+  </head>
+  <body>
+    Welcome to CompSoc Cookbooks, this is the MAIN page. {{ range first 10
+    (where .Site.RegularPages.ByPublishDate "Type" "recipe") }}
+    <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+    <time>{{ .Date.Format "2 Jan, 2006" }}</time>
+    {{ end }}
+  </body>
 </html>

@@ -29,9 +29,10 @@
         </section>
         {{ $content := .Content }}
         {{ $content | safeHTML }}
+        {{ partial "comments.html" . }}
       </article>
       {{ partial "footer.html" }}
     </main>
-    {{ partial "postamble.html" . }}
+    {{ partial "postamble.html" }}
   </body>
 </html>
