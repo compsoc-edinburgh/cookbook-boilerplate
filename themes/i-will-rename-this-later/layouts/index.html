@@ -7,10 +7,20 @@
     <title>Main Page</title>
   </head>
   <body>
-    Welcome to CompSoc Cookbooks, this is the MAIN page. {{ range first 10
-    (where .Site.RegularPages.ByPublishDate "Type" "recipe") }}
-    <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-    <time>{{ .Date.Format "2 Jan, 2006" }}</time>
-    {{ end }}
+    Welcome to CompSoc Cookbooks, this is the MAIN page.
+
+    <br>
+    Here are recent 3 updated recipes.
+
+    <br>
+    {{ range first 3 (where .Site.RegularPages.ByPublishDate.Reverse "Type" "recipes") }}
+          <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+          <time>{{ .Date.Format "2 Jan, 2006" }}</time>
+      {{ end }}
+
+    <br>
+    <br>
+    <br>
+    See all recipes: <a href="recipe">click</a>.
   </body>
 </html>
