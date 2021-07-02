@@ -9,8 +9,9 @@
     <main>
       <h1>{{ .Title }}</h1>
       <ol class="listing">
-        {{ range first 10 .Site.RegularPages.ByPublishDate.Reverse }}
-          {{ if eq .Type "recipe" }}
+        {{ $paginator := .Paginate (where .Pages "Type" "recipe") }}
+
+        {{ range first 10 $paginator.Pages }}
           <a href="{{ .RelPermalink  }}" {{ if isset .Params "image" }}class="image"{{ end }}>
             <li class="listing_item" role="article" {{ if isset .Params "image" }}style="background-image: url({{.Params.image}})"{{ end }}>
               <h2>{{ .Title }}</h2>
@@ -20,9 +21,9 @@
               {{end}}
             </li>
           </a>
-          {{ end }}
         {{ end }}
       </ol>
+      {{ template "_internal/pagination.html" . }}
       {{ partial "footer.html" }}
     </main>
     {{ partial "postamble.html" }}
