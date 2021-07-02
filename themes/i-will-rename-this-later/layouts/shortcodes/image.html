@@ -1,0 +1,56 @@
+{{/*Inspired by https://laurakalbag.com/processing-responsive-images-with-hugo/*/}}
+{{ $img := $.Page.Resources.GetMatch (printf "*%s*" (.Get "src"))}}
+
+{{ $tinyw := default "300x" }}
+{{ $smallw := default "600x" }}
+{{ $mediumw := default "1200x" }}
+{{ $largew := default "1500x" }}
+
+{{ $tiny := ($img.Resize $tinyw) }}
+{{ $small := ($img.Resize $smallw) }}
+{{ $medium := ($img.Resize $mediumw) }}
+{{ $large := ($img.Resize $largew) }}
+
+<figure{{ with .Get "class" }} class="{{ . }}"{{ end }}>
+  {{ if .Get "link" }}
+    <a href="{{ .Get "link" }}"{{ with .Get "target" }} target="{{ . }}"{{ end }}{{ with .Get "rel" }} rel="{{ . }}"{{ end }}>
+  {{ else }}
+    <a href="{{ $img.RelPermalink }}"{{ with .Get "target" }} target="{{ . }}"{{ end }}{{ with .Get "rel" }} rel="{{ . }}"{{ end }}>
+  {{ end }}
+  <img
+    {{ if or (.Get "alt") (.Get "caption") -}}
+      alt="{{ with .Get "alt" }}{{ . }}{{ else }}{{ .Get "caption" | markdownify| plainify }}{{ end }}"
+    {{- end }}
+    {{ if (.Get "title") -}}
+      title="{{ .Get "title" }}"
+    {{ else if or (.Get "alt") (.Get "caption")  -}}
+      title="{{ with .Get "alt" }}{{ . }}{{ else }}{{ .Get "caption" | markdownify| plainify }}{{ end }}"
+    {{- end }}
+    {{ with .Get "width" -}}width="{{ . }}"{{- end }}
+    {{ with .Get "height" -}}height="{{ . }}"{{- end }}
+    {{ with .Get "sizes" -}}
+      sizes="{{.}}"
+    {{- else }}
+      sizes="(min-width: 1200px) 1200px, 100vw"
+    {{- end}}
+    srcset="
+      {{- if ge $img.Width "300" }}{{ $tiny.RelPermalink }} 300w{{ end -}}
+      {{- if ge $img.Width "600" }},{{ $small.RelPermalink }} 600w{{ end -}}
+      {{- if ge $img.Width "1200" }},{{ $medium.RelPermalink }} 1200w{{ end -}}
+      {{- if ge $img.Width "1500" }},{{ $large.RelPermalink }} 1500w {{ end -}}"
+    {{ if .Get (print $medium) -}}
+      src="{{ $medium.RelPermalink }}" 
+    {{- else -}}
+      src="{{ $img.RelPermalink }}" 
+    {{- end }}
+    /> <!-- Closing img tag -->
+    </a>
+    {{- if or (.Get "caption") (.Get "attr") -}}
+        <figcaption{{ with .Get "width" }} style="max-width: {{ . }}"{{ end }}>
+          {{- .Get "caption"  | markdownify }}{{ if and (.Get "caption") (.Get "attr")}}, {{ end -}}
+          {{- with .Get "attrlink" }}<a href="{{ . }}">{{ end -}}
+          {{- .Get "attr" | markdownify -}}
+          {{- if .Get "attrlink" }}</a>{{ end -}}
+        </figcaption>
+    {{- end }}
+</figure>

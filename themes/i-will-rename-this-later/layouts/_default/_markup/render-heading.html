@@ -1,0 +1,9 @@
+{{/* if or (eq .Page.Type "post")*/}}
+  {{ $newlevel := add .Level 1 }}
+  <h{{ $newlevel }} {{ if eq $newlevel 2 }}id="{{ .Anchor | safeURL }}"{{ end }}>{{ if eq $newlevel 2 }}<a class="anchor" href="#{{ .Anchor | safeURL }}">::</a> {{end}}{{ .Text | safeHTML }}</h{{ $newlevel }}>
+{{/* else }}
+  <h{{ .Level }}>{{ .Text | safeHTML }}</h{{ .Level }}>
+{{ end */}}
+
+{{/*lang="{{ if or (eq (replaceRE `[\x{3000}-\x{303f}\x{3040}-\x{309f}\x{30a0}-\x{30ff}\x{ff00}-\x{ff9f}\x{4e00}-\x{9faf}\x{3400}-\x{4dbf}]` "$1" .Text) .Text ) (in .Text "[.en]") }}en{{else}}ja{{end}}"*/}}
+{{/* (replace .Text "[.en]" "") */}}

@@ -1,0 +1,10 @@
+baseURL: ""
+languageCode: "en-us"
+title: "CompSoc Cookbook"
+slogan: "Hey, good lookin', whatcha cookin'?"
+theme: "i-will-rename-this-later"
+
+
+taxonomies:
+  difficulty: difficulties
+  cuisine: cuisines

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}">
+  <head>
+    <title>{{ .Title }} | List</title>
+    {{ partial "preamble.html" . }}
+  </head>
+  <body>
+    recipe list.
+    <main>
+      <h1>{{ .Title }}</h1>
+      <ol class="listing">
+        {{ range first 10 .Site.RegularPages.ByPublishDate.Reverse }}
+          {{ if eq .Type "recipe" }}
+          <a href="{{ .Permalink }}" {{ if isset .Params "image" }}class="image"{{ end }}>
+            <li class="listing_item" role="article" {{ if isset .Params "image" }}style="background-image: url({{.Params.image}})"{{ end }}>
+              <h2>{{ .Title }}</h2>
+              <span class="pubdate">written: <time>{{ .PublishDate.Format "2 January, 2006" }}</time></span>
+              {{ if isset .Params "summary" }}
+                <p>{{ .Params.summary }}</p>
+              {{end}}
+            </li>
+          </a>
+          {{ end }}
+        {{ end }}
+      </ol>
+      {{ partial "footer.html" }}
+    </main>
+    {{ partial "postamble.html" . }}
+  </body>
+</html>
