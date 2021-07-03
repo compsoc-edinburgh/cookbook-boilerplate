@@ -11,14 +11,9 @@
   <body>
     <main role="main">
       <article>
-        {{ if isset .Params "image" }}
-        <section class="header image" style="background-image: url({{ .Params.image }});">
-        {{ else }}
-        <section class="header">
-        {{ end }}
-          <h1>{{ .Title }}</h1>
-          <time datetime="{{ .Date }}">{{ .Date.Format "2 January, 2006" }}</time>
-        </section>
+        <h1>{{ .Title }}</h1>
+        <time datetime="{{ .Date }}">{{ .Date.Format "2 January, 2006" }}</time>
+
         {{ $content := .Content }}
         {{ $content | safeHTML }}
         {{ partial "comments.html" . }}
