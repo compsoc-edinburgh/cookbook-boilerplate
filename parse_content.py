@@ -38,6 +38,9 @@ def main():
         git_command = ["git", "log", "-1", "--pretty=format:%ci", "--follow", "--", relative_path]
         date = subprocess.check_output(git_command, cwd=args.input_dir).decode("utf-8")
         print(date)
+        git_version = ["git", "--version"]
+        version = subprocess.check_output(git_version, cwd=args.input_dir).decode("utf-8")
+        print(version)
         front_matter.setdefault("publishdate", date)
 
         # read the existing front matter (if any) and contents
