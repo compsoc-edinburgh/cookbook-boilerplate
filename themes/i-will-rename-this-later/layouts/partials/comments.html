@@ -1,3 +1,4 @@
+<span>Comment below, or on <a href="https://github.com/{{ .Site.Params.commentRepo }}/discussions">the Git repo</a>.</span><br>
 <script src="https://giscus.app/client.js"
         data-repo="{{ .Site.Params.commentRepo }}"
         data-repo-id="MDEwOlJlcG9zaXRvcnkzODEzOTAwNjU="
@@ -9,4 +10,5 @@
         crossorigin="anonymous"
         async>
 </script>
+<noscript>Your browser does not support JavaScript, so inline comments have been hidden.<noscript>
 <!-- TODO: enable custom CSS once https://github.com/laymonage/giscus/issues/114 has been PR-ed and merged. -->
