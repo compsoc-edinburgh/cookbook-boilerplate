@@ -41,7 +41,7 @@ def main():
         front_matter.setdefault("publishdate", date)
 
         # read the existing front matter (if any) and contents
-        with open(recipe, "r") as f:
+        with open(recipe, "r", encoding="utf-8") as f:
             contents = f.readlines()
         existing_front_matter, name, contents = split_contents(contents)
 
@@ -52,7 +52,7 @@ def main():
             front_matter = front_matter | existing_front_matter
 
         # write everything to file
-        with open(os.path.join(args.output_dir, os.path.basename(recipe)), "w+") as f:
+        with open(os.path.join(args.output_dir, os.path.basename(recipe)), "w+", encoding="utf-8") as f:
             f.write("---\n")
             f.writelines(yaml.dump(front_matter))
             f.write("---\n\n")
