@@ -4,31 +4,35 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Main Page</title>
+    <title>{{ .Site.Title }}</title>
   </head>
   <body>
-    Welcome to CompSoc Cookbooks, this is the MAIN page.
-
-    <br>
-    Here are recent 3 updated recipes.
-
-    <br>
-    {{ range first 3 (where .Site.RegularPages.ByPublishDate.Reverse "Type" "recipes") }}
-          <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+    <main>
+      <h1>{{ .Site.Title }} Main Page</h1>
+      <span>{{ .Site.Params.slogan }}</span>
+      <hr>
+      <br>
+      <section>
+        <h2>Most Recently Updated Recipes</h2>
+        {{ range first 3 (where .Site.RegularPages.ByPublishDate.Reverse "Type" "recipes") }}
+        <article>
+          <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
           <time>{{ .Date.Format "2 Jan, 2006" }}</time>
-      {{ end }}
-
-    <br>
-    <br>
-    <br>
-    See all recipes: <a href="recipes">click</a>.<br>
-    Browse by various sorts:
-    <ul>
-      {{ range $taxonomy_term, $taxonomy := .Site.Taxonomies }}
-        {{ with $.Site.GetPage (printf "/%s" $taxonomy_term) }}
-          <li><a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a></li>
+        </article>
         {{ end }}
-      {{ end }}
-    </ul>
+      </section>
+      See all recipes: <a href="recipes">click</a>.
+      <br>
+      <section>
+        <h2>Browse from various selections</h2>
+        <ul>
+        {{ range $taxonomy_term, $taxonomy := .Site.Taxonomies }}
+          {{ with $.Site.GetPage (printf "/%s" $taxonomy_term) }}
+            <li><a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a></li>
+          {{ end }}
+        {{ end }}
+        </ul>
+      </section>
+    </main>
   </body>
 </html>

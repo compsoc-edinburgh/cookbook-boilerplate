@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Lang }}">
   <head>
-    <title>{{ .Title }} | List</title>
+    <title>Browsing all {{ .Title }} dishes | {{ .Site.Title }}</title>
     {{ partial "preamble.html" . }}
   </head>
   <body>
-    list of cuisines that are {{.Data.Term}}.
     <main>
       <h1>{{ .Title }}</h1>
+      <span>List of {{.Data.Term}} dishes.</span>
+      <hr>
       <ol class="listing">
         {{ $paginator := .Paginate (where .Pages.ByPublishDate.Reverse "Type" "recipes") }}
 
         {{ range first 10 $paginator.Pages }}
-          <a href="{{ .RelPermalink  }}" {{ if isset .Params "image" }}class="image"{{ end }}>
-            <li class="listing_item" role="article" {{ if isset .Params "image" }}style="background-image: url({{.Params.image}})"{{ end }}>
+          <a href="{{ .RelPermalink  }}">
+            <li class="listing_item" role="article">
               <h2>{{ .Title }}</h2>
               <span class="pubdate">written: <time>{{ .PublishDate.Format "2 January, 2006" }}</time></span>
-              {{ if isset .Params "summary" }}
-                <p>{{ .Params.summary }}</p>
-              {{end}}
             </li>
           </a>
         {{ end }}

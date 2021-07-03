@@ -1,13 +1,14 @@
+{{/* This is a generic placeholder for when there is no [taxonomy]/term.html available. Mostly here as backup in case a new taxonomy is added. */}}
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Lang }}">
   <head>
-    <title>Browsing all {{ .Title }} dishes... | {{ .Site.Title }}</title>
+    <title>Browsing all {{ .Title }} dishes | {{ .Site.Title }}</title>
     {{ partial "preamble.html" . }}
   </head>
   <body>
     <main>
       <h1>{{ .Title }}</h1>
-      <span>List of cuisines that are supposedly ranked in difficulty as {{.Data.Term}}.</span>
+      <span>List of cuisines that are {{.Data.Term}}.</span>
       <hr>
       <ol class="listing">
         {{ $paginator := .Paginate (where .Pages.ByPublishDate.Reverse "Type" "recipes") }}

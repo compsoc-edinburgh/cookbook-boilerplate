@@ -2,12 +2,11 @@
 <html lang="{{ .Site.Language.Lang }}">
   <head>
     {{ partial "preamble.html" . }}
-    <title>{{ .Title }} | CompSoc Cookbook</title>
-    {{ if isset .Params "summary" }}<meta name="description" content="{{ .Params.summary }}" />{{ end }}
-    <meta property="og:description" content="{{ if isset .Params "summary" }}{{ .Params.summary}}{{ else }}{{ .Title }}{{ end }}" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://cookbook.comp-soc.com" />
+    <title>{{ .Title }} | {{ .Site.Title }}</title>
     <meta property="og:title" content="{{ .Title }}" />
+    <meta property="og:description" content="A curated recipe by a valuable CompSoc member." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://comp-soc.com/cookbook" />
   </head>
   <body>
     <main role="main">
@@ -18,21 +17,15 @@
         <section class="header">
         {{ end }}
           <h1>{{ .Title }}</h1>
-          {{ if isset .Params "summary" }}<p class="summary">{{ .Params.summary }}</p>{{ end }}
-          <div class="meta">
-            <div>
-              <time datetime="{{ .Date }}">{{ .Date.Format "2 January, 2006" }}</time>
-              <span class="bullet">•</span>
-              124124
-              <span>Serves</span>
-            </div>
-          </div>
+          <time datetime="{{ .Date }}">{{ .Date.Format "2 January, 2006" }}</time>
         </section>
         {{ $content := .Content }}
         {{ $content | safeHTML }}
         {{ partial "comments.html" . }}
       </article>
-      {{ partial "footer.html" }}
+      <section>
+        {{ partial "footer.html" }}
+      </section>
     </main>
     {{ partial "postamble.html" }}
   </body>

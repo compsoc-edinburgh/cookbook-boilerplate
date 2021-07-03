@@ -1,10 +1,11 @@
 title: "CompSoc Cookbook"
 languageCode: "en-us"
-slogan: "Hey, good lookin', whatcha cookin'? Still testing."
 theme: "i-will-rename-this-later"
 relativeURLs: true
 
 params:
+  # slogan
+  slogan: "Hey, good lookin', whatcha cookin'? Still testing."
   # controls where the comments are put.
   commentRepo: yutotakano/cook-book
 
