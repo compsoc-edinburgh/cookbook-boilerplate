@@ -10,7 +10,7 @@
       <span>List of all recipes.</span>
       <hr>
       <ol class="listing">
-        {{ $paginator := .Paginate (where .Pages.ByPublishDate.Reverse "Type" "recipes") }}
+        {{ $paginator := .Paginate (where (.Pages.ByTitle.Reverse).ByPublishDate.Reverse "Type" "recipes") }}
 
         {{ range first 10 $paginator.Pages }}
           <a href="{{ .RelPermalink  }}" {{ if isset .Params "image" }}class="image"{{ end }}>
