@@ -35,9 +35,10 @@ def main():
 
         # get the latest edit date from the git commit log
         relative_path = os.path.join(os.path.basename(cuisine), os.path.basename(difficulty), os.path.basename(recipe))
-        git_command = ["git", "log", "-1", "--pretty=format:%ci", relative_path]
+        git_command = ["git", "log", "-2", "--pretty=format:%ci", relative_path]
         date = subprocess.check_output(git_command, cwd=args.input_dir).decode("utf-8")
-        front_matter.setdefault("publishdate", date)
+        print(date)
+        front_matter.setdefault("publishdate", date.split("\n")[0])
 
         # read the existing front matter (if any) and contents
         with open(recipe, "r") as f:
