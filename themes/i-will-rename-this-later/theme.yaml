@@ -2,12 +2,12 @@
 # See https://github.com/gohugoio/hugoThemes#themetoml for an example
 
 name: "i-will-rename-this-later"
-license: "CC0"
+license: "MIT"
 licenselink: "https://github.com/compsoc-edinburgh/cookbook-boilerplate/blob/master/LICENSE"
-description: "Boilerplate template for CompSoc cookbook. Any other use is unsupported."
+description: "Boilerplate template for CompSoc Cookbook. Any other use is unsupported."
 homepage: "https://comp-soc.com/"
-min_version: "0.41.0"
+min_version: "0.66.0"
 
 author:
-  name: "Yuto Takano"
-  homepage: https://github.com/yutotakano
+  name: "CompSoc Contributors"
+  homepage: https://github.com/compsoc-edinburgh
