@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+/* =======================================================*/
+/* Configuration for Bootstrap using SASS variables       */
+/* =======================================================*/
 $primary-darkest: #885d3a;
 $primary-darker: #af7c54;
 $primary: #cc9e79;
@@ -10,21 +13,31 @@ $secondary-lighter: #ebf7cd;
 $secondary: #EAF7B7;
 $secondary-darker: #bed18d;
 
-:root {
-  --sans-serif-font: "Lato", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", system-ui;
-  --serif-font: "Playfair Display", charter, Georgia, Cambria, "Times New Roman", Times, serif, system-ui;
-}
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px
+);
+
+$font-family-base:"Lato", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", system-ui;
+
+/* =======================================================*/
+/* Load Bootstrap                                         */
+/* =======================================================*/
+
+@import "../bootstrap/scss/bootstrap";
+
+/* =======================================================*/
+/* Custom overrides, styles, CSS generation               */
+/* =======================================================*/
 
 html {
   background-color: $bg;
 }
 
-body {
-  font-family: var(--sans-serif-font);
+@each $display, $font-size in $display-font-sizes {
+  .display-#{$display} {
+    font-family: "Playfair Display", charter, Georgia, Cambria, "Times New Roman", Times, serif, system-ui;
+  }
 }
-
-main article h1 {
-  font-family: var(--serif-font);
-}
-
-@import "../bootstrap/scss/bootstrap";
