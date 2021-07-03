@@ -18,7 +18,12 @@
           <section>
             <h2>Tags</h2>
             <ul>
-            {{ range $val := .Page.Params.tags -}}
+            {{ $tags := .Page.Params.tags }}
+            {{/* Tags are a list but just incase someone puts a string:*/}}
+            {{ if eq (printf "%T" .Page.Params.tags) "string" }}
+              {{ $tags = slice .Page.Params.tags }}
+            {{ end }}
+            {{ range $val := $tags -}}
               <li>{{ $val }} </li>
             {{- end }}
             </ul>
