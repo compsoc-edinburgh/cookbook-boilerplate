@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}">
+  <head>
+    <title>Browsing all {{ .Title }} dishes | {{ .Site.Title }}</title>
+    {{ partial "preamble.html" . }}
+  </head>
+  <body>
+    <main>
+      <h1>{{ .Title }}</h1>
+      <span>List of {{.Data.Term}} dishes.</span>
+      <hr>
+      <ol class="listing">
+        {{ $paginator := .Paginate (where .Pages.ByPublishDate.Reverse "Type" "recipes") }}
+
+        {{ range first 10 $paginator.Pages }}
+          <a href="{{ .RelPermalink  }}">
+            <li class="listing_item" role="article">
+              <h2>{{ .Title }}</h2>
+              <span class="pubdate">written: <time>{{ .PublishDate.Format "2 January, 2006" }}</time></span>
+            </li>
+          </a>
+        {{ end }}
+      </ol>
+      {{ template "_internal/pagination.html" . }}
+      {{ partial "footer.html" }}
+    </main>
+    {{ partial "postamble.html" }}
+  </body>
+</html>
