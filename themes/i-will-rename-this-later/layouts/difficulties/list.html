@@ -1,1 +1,5 @@
-list of difficulties.
+difficulty list.
+
+{{ range .Site.Taxonomies.difficulties }}
+  <li><a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a> {{ .Count }}</li>
+{{ end }}
