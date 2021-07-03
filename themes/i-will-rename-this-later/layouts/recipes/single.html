@@ -32,9 +32,7 @@
           {{ $content := .Content }}
           {{ $content | safeHTML }}
         </article>
-        <section>
-          {{ partial "comments.html" . }}
-        </section>
+        {{ partial "comments.html" . }}
       </main>
       {{ partial "footer.html" }}
     </div>
