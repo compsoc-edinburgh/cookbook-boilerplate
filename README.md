@@ -1,4 +1,4 @@
-# CompSoc Cookbooks Boilerplate
+# CompSoc Cookbook Boilerplate
 
 In order to reduce the effort of maintaining/contributing/editing the [cookbook repository](https://github.com/compsoc-edinburgh/cook-book), all the website related things are put in this repository.
 
