@@ -28,7 +28,6 @@ def main():
 
         front_matter = {}
         front_matter.setdefault("layout", "recipe")
-        front_matter.setdefault("title", get_name(recipe))
         difficulty = os.path.dirname(recipe)
         front_matter.setdefault("difficulties", os.path.basename(difficulty))
         cuisine = os.path.dirname(difficulty)
@@ -43,7 +42,9 @@ def main():
         # read the existing front matter (if any) and contents
         with open(recipe, "r") as f:
             contents = f.readlines()
-        existing_front_matter, contents = split_contents(contents)
+        existing_front_matter, name, contents = split_contents(contents)
+
+        front_matter.setdefault("title", name)
 
         # merge the front matters (3.9+)
         if existing_front_matter:
@@ -56,27 +57,22 @@ def main():
             f.write("---\n\n")
             f.writelines(contents)
 
-def get_name(filename: str) -> str:
-    """
-    Get the first h1 header within the file, and return it
-    """
-    with open(filename, "r") as f:
-        for line in f:
-            if line[:2] == "# ":
-                return line[2:].strip()
-    return "<unnamed>"
-
-def split_contents(contents: list[str]) -> (list[str], list[str]):
+def split_contents(contents: list[str]) -> (list[str], str, list[str]):
     """
     Split a list of all lines in a file into front matter
     and just regular markdown content.
     """
     front_matter = []
+    name = "<unnamed>"
     meaningful_stuff = []
     currently_parsing = False
     for line in contents:
         if line == "---\n":
             currently_parsing = not currently_parsing
+            continue
+
+        if line[:2] == "# " and name == "<unnamed>":
+            name = line[2:].strip()
             continue
 
         if currently_parsing:
@@ -90,7 +86,7 @@ def split_contents(contents: list[str]) -> (list[str], list[str]):
         parsed = {}
         meaningful_stuff = contents
 
-    return (parsed, meaningful_stuff)
+    return (parsed, name, meaningful_stuff)
 
 if __name__ == "__main__":
     main()
