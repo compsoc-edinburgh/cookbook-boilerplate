@@ -4,6 +4,7 @@ from glob import glob
 import html
 import subprocess
 import yaml
+from parsec import *
 
 parser = argparse.ArgumentParser(description='Convert the cook-book directory structure to Hugo structure.')
 parser.add_argument('-i', '--input-dir', type=str, required=True,
@@ -57,25 +58,25 @@ def main():
             f.write("---\n\n")
             f.writelines(contents)
 
-def split_contents(contents: list[str]) -> (list[str], str, list[str]):
+def split_contents(contents: list[str]) -> (dict, str, list[str]):
     """
     Split a list of all lines in a file into front matter
     and just regular markdown content.
     """
     front_matter = []
-    name = "<unnamed>"
+    recipe_name = "<unnamed>"
     meaningful_stuff = []
-    currently_parsing = False
+    currently_fm = False
     for line in contents:
         if line == "---\n":
-            currently_parsing = not currently_parsing
+            currently_fm = not currently_fm
             continue
 
-        if line[:2] == "# " and name == "<unnamed>":
-            name = line[2:].strip()
+        if line[:2] == "# " and recipe_name == "<unnamed>":
+            recipe_name = line[2:].strip()
             continue
 
-        if currently_parsing:
+        if currently_fm:
             front_matter.append(line)
         else:
             meaningful_stuff.append(line)
@@ -86,7 +87,7 @@ def split_contents(contents: list[str]) -> (list[str], str, list[str]):
         parsed = {}
         meaningful_stuff = contents
 
-    return (parsed, name, meaningful_stuff)
+    return (parsed, recipe_name, meaningful_stuff)
 
 if __name__ == "__main__":
     main()
