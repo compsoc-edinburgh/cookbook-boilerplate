@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Lang }}">
   <head>
-    <title>Browsing all dishes that are {{ .Data.Plural }}</title>
+    <title>Browsing all {{ .Data.Plural }}</title>
     {{ partial "preamble.html" . }}
   </head>
   <body>
     <main>
       <h1>{{ .Title }}</h1>
-      <span>List of dishes that are {{ .Data.Plural }}. We do not make any guarantees and the labeling is up to the contributor of each recipe.</span>
+      <span>List of {{ .Data.Plural }} that could be in the dishes. We do not make any guarantees and the labeling is up to the contributor of each recipe.</span>
       <hr>
       <ol class="listing">
         {{ range .Data.Terms }}

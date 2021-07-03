@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Lang }}">
   <head>
-    <title>Browsing all {{ .Title }} dishes | {{ .Site.Title }}</title>
+    <title>Browsing all dishes that are {{ .Title }}</title>
     {{ partial "preamble.html" . }}
   </head>
   <body>
     <main>
       <h1>{{ .Title }}</h1>
-      <span>List of {{.Data.Term}} dishes.</span>
+      <span>List of dishes that are {{ .Title }}. We do not make any guarantees and the labeling is up to the contributor of each recipe.</span>
       <hr>
       <ol class="listing">
         {{ $paginator := .Paginate (where .Pages.ByPublishDate.Reverse "Type" "recipes") }}
