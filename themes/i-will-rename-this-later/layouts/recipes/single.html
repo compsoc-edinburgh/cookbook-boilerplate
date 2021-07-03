@@ -10,27 +10,29 @@
     <meta property="og:url" content="https://comp-soc.com/cookbook" />
   </head>
   <body>
-    <main role="main">
-      <article>
-        <h1>{{ .Title }}</h1>
-        <time datetime="{{ .Date }}">{{ .Date.Format "2 January, 2006" }}</time>
-        <section>
-          <h2>Tags</h2>
-          <ul>
-          {{ range $val := .Page.Params.tags -}}
-            <li>{{ $val }} </li>
-          {{- end }}
-          </ul>
-          </section>
+    <div class="container">
+      <main>
+        <article>
+          <h1>{{ .Title }}</h1>
+          <time datetime="{{ .Date }}">{{ .Date.Format "2 January, 2006" }}</time>
+          <section>
+            <h2>Tags</h2>
+            <ul>
+            {{ range $val := .Page.Params.tags -}}
+              <li>{{ $val }} </li>
+            {{- end }}
+            </ul>
+            </section>
 
-        {{ $content := .Content }}
-        {{ $content | safeHTML }}
-        {{ partial "comments.html" . }}
-      </article>
-      <section>
-        {{ partial "footer.html" }}
-      </section>
-    </main>
-    {{ partial "postamble.html" }}
+          {{ $content := .Content }}
+          {{ $content | safeHTML }}
+          {{ partial "comments.html" . }}
+        </article>
+        <section>
+          {{ partial "footer.html" }}
+        </section>
+      </main>
+      {{ partial "postamble.html" }}
+    </div>
   </body>
 </html>

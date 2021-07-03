@@ -5,34 +5,36 @@
     <title>{{ .Site.Title }}</title>
   </head>
   <body>
-    <main>
-      <h1>{{ .Site.Title }} Main Page</h1>
-      <span>{{ .Site.Params.slogan }}</span>
-      <hr>
-      <br>
-      <section>
-        <h2>Most Recently Updated Recipes</h2>
-        {{ range first 3 (where .Site.RegularPages.ByPublishDate.Reverse "Type" "recipes") }}
-        <article>
-          <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
-          <time>{{ .Date.Format "2 Jan, 2006" }}</time>
-        </article>
-        {{ end }}
-      </section>
-      <br>
-      See all recipes: <a href="recipes">click</a>.
-      <br>
-      <section>
-        <h2>Browse from various selections</h2>
-        <ul>
-        {{ range $taxonomy_term, $taxonomy := .Site.Taxonomies }}
-          {{ with $.Site.GetPage (printf "/%s" $taxonomy_term) }}
-            <li><a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a></li>
+    <div class="container">
+      <main>
+        <h1>{{ .Site.Title }} Main Page</h1>
+        <span>{{ .Site.Params.slogan }}</span>
+        <hr>
+        <br>
+        <section>
+          <h2>Most Recently Updated Recipes</h2>
+          {{ range first 3 (where .Site.RegularPages.ByPublishDate.Reverse "Type" "recipes") }}
+          <article>
+            <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+            <time>{{ .Date.Format "2 Jan, 2006" }}</time>
+          </article>
           {{ end }}
-        {{ end }}
-        </ul>
-      </section>
-    </main>
-    {{ partial "postamble.html" }}
+        </section>
+        <br>
+        See all recipes: <a href="recipes">click</a>.
+        <br>
+        <section>
+          <h2>Browse from various selections</h2>
+          <ul>
+          {{ range $taxonomy_term, $taxonomy := .Site.Taxonomies }}
+            {{ with $.Site.GetPage (printf "/%s" $taxonomy_term) }}
+              <li><a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a></li>
+            {{ end }}
+          {{ end }}
+          </ul>
+        </section>
+      </main>
+      {{ partial "postamble.html" }}
+    </div>
   </body>
 </html>
