@@ -30,11 +30,11 @@ def main():
         front_matter.setdefault("layout", "recipe")
         difficulty = os.path.dirname(recipe)
         front_matter.setdefault("difficulties", os.path.basename(difficulty))
-        cuisine = os.path.dirname(difficulty)
-        front_matter.setdefault("cuisines", os.path.basename(cuisine))
+        meal = os.path.dirname(difficulty)
+        front_matter.setdefault("meals", os.path.basename(meal))
 
         # get the latest edit date from the git commit log
-        relative_path = os.path.join(os.path.basename(cuisine), os.path.basename(difficulty), os.path.basename(recipe))
+        relative_path = os.path.join(os.path.basename(meal), os.path.basename(difficulty), os.path.basename(recipe))
         git_command = ["git", "log", "-1", "--pretty=format:%ci", "--follow", "--", relative_path]
         date = subprocess.check_output(git_command, cwd=args.input_dir).decode("utf-8")
         front_matter.setdefault("publishdate", date)

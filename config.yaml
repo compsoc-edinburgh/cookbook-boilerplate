@@ -11,5 +11,5 @@ params:
 
 taxonomies:
   difficulty: difficulties
-  cuisine: cuisines
+  meal: meals
   tag: tags
