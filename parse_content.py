@@ -45,7 +45,9 @@ def main():
             contents = f.readlines()
         existing_front_matter, contents = split_contents(contents)
 
-        join_front_matter(existing_front_matter, front_matter)
+        # merge the front matters (3.9+)
+        if existing_front_matter:
+            front_matter = front_matter | existing_front_matter
 
         # write everything to file
         with open(os.path.join(args.output_dir, os.path.basename(recipe)), "w+") as f:
@@ -89,19 +91,6 @@ def split_contents(contents: list[str]) -> (list[str], list[str]):
         meaningful_stuff = contents
 
     return (parsed, meaningful_stuff)
-
-def join_front_matter(existing: dict, front_matter: dict) -> None:
-    """
-    Merge the existing front matter and prioritise those.
-    @front_matter@ is modified in place.
-    """
-    if existing is not None:
-        for key, value in existing.items():
-            if key in front_matter:
-                front_matter[key] = value
-            else:
-                front_matter.setdefault(key, value)
-
 
 if __name__ == "__main__":
     main()
