@@ -4,7 +4,6 @@ from glob import glob
 import html
 import subprocess
 import yaml
-from parsec import *
 
 parser = argparse.ArgumentParser(description='Convert the cook-book directory structure to Hugo structure.')
 parser.add_argument('-i', '--input-dir', type=str, required=True,
