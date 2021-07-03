@@ -1,0 +1,4 @@
+[submodule "content_raw"]
+	path = content_raw
+	url = git@github.com:compsoc-edinburgh/cook-book.git
+	branch = main
