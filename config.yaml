@@ -12,4 +12,4 @@ params:
 taxonomies:
   difficulty: difficulties
   cuisine: cuisines
-  dietarypref: dietaryprefs
+  tag: tags
