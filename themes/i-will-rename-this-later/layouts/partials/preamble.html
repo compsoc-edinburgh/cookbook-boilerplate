@@ -9,5 +9,5 @@
 <link href="https://fonts.googleapis.com/css2?family=Lato&family=Playfair+Display&display=swap" rel="stylesheet">
 
 <!-- Compiled CSS, contains Bootstrap and custom CSS -->
-{{ $style := resources.Get "/sass/main.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint}}
+{{ $style := resources.Get "/scss/main.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint}}
 <link rel="stylesheet" href="{{ $style.Permalink }}">
