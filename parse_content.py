@@ -35,6 +35,7 @@ def main():
 
         # get the latest edit date from the git commit log
         relative_path = os.path.join(os.path.basename(cuisine), os.path.basename(difficulty), os.path.basename(recipe))
+        print(relative_path)
         git_command = ["git", "log", "-2", "--pretty=format:%ci", relative_path]
         date = subprocess.check_output(git_command, cwd=args.input_dir).decode("utf-8")
         print(date)
