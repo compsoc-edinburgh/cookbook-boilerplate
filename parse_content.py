@@ -3,6 +3,7 @@ import os
 from glob import glob
 import html
 import subprocess
+import yaml
 
 parser = argparse.ArgumentParser(description='Convert the cook-book directory structure to Hugo structure.')
 parser.add_argument('-i', '--input-dir', type=str, required=True,
@@ -49,7 +50,7 @@ def main():
         # write everything to file
         with open(os.path.join(args.output_dir, os.path.basename(recipe)), "w+") as f:
             f.write("---\n")
-            f.writelines([key + ": " + value + "\n" for key,value in front_matter.items()])
+            f.writelines(yaml.dump(front_matter))
             f.write("---\n\n")
             f.writelines(contents)
 
@@ -60,7 +61,7 @@ def get_name(filename: str) -> str:
     with open(filename, "r") as f:
         for line in f:
             if line[:2] == "# ":
-                return "\"" + html.escape(line[2:].strip()) + "\""
+                return line[2:].strip()
     return "<unnamed>"
 
 def split_contents(contents: list[str]) -> (list[str], list[str]):
@@ -76,21 +77,30 @@ def split_contents(contents: list[str]) -> (list[str], list[str]):
             currently_parsing = not currently_parsing
             continue
 
-        if currently_parsing and ":" in line:
+        if currently_parsing:
             front_matter.append(line)
         else:
             meaningful_stuff.append(line)
 
-    return (front_matter, meaningful_stuff)
+    try:
+        parsed = yaml.safe_load("\n".join(front_matter))
+    except Exception as e:
+        parsed = {}
+        meaningful_stuff = contents
 
-def join_front_matter(existing: list[str], front_matter: dict) -> None:
+    return (parsed, meaningful_stuff)
+
+def join_front_matter(existing: dict, front_matter: dict) -> None:
     """
     Merge the existing front matter and prioritise those.
     @front_matter@ is modified in place.
     """
-    for existing_line in existing:
-        key, value = existing_line.split(":", 1)
-        front_matter[key] = value.strip()
+    if existing is not None:
+        for key, value in existing.items():
+            if key in front_matter:
+                front_matter[key] = value
+            else:
+                front_matter.setdefault(key, value)
 
 
 if __name__ == "__main__":
