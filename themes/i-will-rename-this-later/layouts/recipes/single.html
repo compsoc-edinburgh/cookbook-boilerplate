@@ -31,13 +31,13 @@
 
           {{ $content := .Content }}
           {{ $content | safeHTML }}
-          {{ partial "comments.html" . }}
         </article>
         <section>
-          {{ partial "footer.html" }}
+          {{ partial "comments.html" . }}
         </section>
       </main>
-      {{ partial "postamble.html" }}
+      {{ partial "footer.html" }}
     </div>
+    {{ partial "postamble.html" }}
   </body>
 </html>
