@@ -175,3 +175,34 @@ body {
 
   }
 }
+
+.recipe-keywords {
+  text-transform: uppercase;
+  color: $text-primary-hint;
+
+  .recipe-keyword {
+    margin: 0 $spacer * 0.5;
+  }
+}
+
+.recipe-properties {
+  text-transform: uppercase;
+  color: $text-primary;
+
+  .recipe-property {
+    margin: 0 $spacer;
+  }
+}
+
+@for $heading-size from 1 through 4 {
+  .recipe-body h#{$heading-size} {
+    font-family: $font-family-base;
+    font-weight: bold;
+
+    @extend .mt-4, .mb-4;
+
+    @media print {
+      margin: 0 0 1rem 0 !important;
+    }
+  }
+}

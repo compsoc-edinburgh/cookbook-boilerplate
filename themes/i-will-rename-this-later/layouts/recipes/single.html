@@ -10,28 +10,34 @@
     <meta property="og:url" content="https://comp-soc.com/cookbook" />
   </head>
   <body>
-    <div class="background"></div>
     <div class="container">
       <main>
-        <article>
-          <h1 class="display-4">{{ .Title }}</h1>
-          <time datetime="{{ .Date }}">{{ .Date.Format "2 January, 2006" }}</time>
-          <section>
-            <h2>Tags</h2>
-            <ul>
-            {{ $tags := .Page.Params.tags }}
-            {{/* Tags are a list but just incase someone puts a string:*/}}
-            {{ if eq (printf "%T" .Page.Params.tags) "string" }}
-              {{ $tags = slice .Page.Params.tags }}
-            {{ end }}
-            {{ range $val := $tags -}}
-              <li>{{ $val }} </li>
-            {{- end }}
-            </ul>
-            </section>
-
-          {{ $content := .Content }}
-          {{ $content | safeHTML }}
+        <article class="recipe">
+          <!-- Header -->
+          <div class="d-flex flex-column align-items-center mb-5">
+            <div class="recipe-keywords">
+              {{ $tags := .Page.Params.tags }}
+              {{/* Tags are a supposed to be arrays but just incase someone puts a string:*/}}
+              {{ if eq (printf "%T" .Page.Params.tags) "string" }}
+                {{ $tags = slice .Page.Params.tags }}
+              {{ end }}
+              {{ range $val := $tags -}}
+                <span class="recipe-keyword">{{ $val }}</span>
+              {{- end }}
+            </div>
+            <h1 class="display-2 mt-3 mb-4">{{ .Title }}</h1>
+            <div class="recipe-properties">
+              <time class="recipe-property" datetime="{{ .Date }}">{{ .Date.Format "2 January, 2006" }}</time>
+              <span class="recipe-property"><b>Skill:</b> {{ .Page.Params.difficulties }}</span>
+              {{ if isset .Page.Params "serves" }}<span class="recipe-property"><b>Serves:</b> {{ .Page.Params.serves }}</span>{{ end }}
+            </div>
+          </div>
+          <section class="recipe-body row justify-content-center">
+            <div class="col-12 col-md-10">
+              {{ $content := .Content }}
+              {{ $content | safeHTML }}
+            </div>
+          </section>
         </article>
         {{ partial "comments.html" . }}
       </main>
