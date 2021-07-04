@@ -194,6 +194,10 @@ body {
   }
 }
 
+.recipe-body img {
+  max-width: 100%;
+}
+
 @for $heading-size from 1 through 4 {
   .recipe-body h#{$heading-size} {
     font-family: $font-family-base;
@@ -204,5 +208,18 @@ body {
     @media print {
       margin: 0 0 1rem 0 !important;
     }
+  }
+}
+
+footer {
+  color: $text-dark-disabled;
+  transition: color 0.15s cubic-bezier(0.215, 0.610, 0.355, 1);
+
+  &:hover {
+    color: $text-dark;
+  }
+
+  a {
+    color: $text-primary-hint;
   }
 }

@@ -25,7 +25,7 @@
                 <span class="recipe-keyword">{{ $val }}</span>
               {{- end }}
             </div>
-            <h1 class="display-2 mt-3 mb-4">{{ .Title }}</h1>
+            <h1 class="display-2 mt-3 mb-4 text-center">{{ .Title }}</h1>
             <div class="recipe-properties">
               <time class="recipe-property" datetime="{{ .Date }}">{{ .Date.Format "2 January, 2006" }}</time>
               <span class="recipe-property"><b>Skill:</b> {{ .Page.Params.difficulties }}</span>
@@ -34,8 +34,7 @@
           </div>
           <section class="recipe-body row justify-content-center">
             <div class="col-12 col-md-10">
-              {{ $content := .Content }}
-              {{ $content | safeHTML }}
+              {{ .Content | emojify | safeHTML }}
             </div>
           </section>
         </article>
