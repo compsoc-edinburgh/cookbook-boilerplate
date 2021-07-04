@@ -143,6 +143,10 @@ body {
     .meta {
       transition: color 0.2s cubic-bezier(0.215, 0.610, 0.355, 1);
       color: $text-primary-hint;
+
+      @include media-breakpoint-only(xs) {
+        font-size: 0.9rem;
+      }
     }
   }
 

@@ -29,7 +29,7 @@
                 <div class="card h-100">
                   <img src="https://source.unsplash.com/random?{{ .Title }}" class="card-image-top mx-1 mt-1" alt="Placeholder courtesy of Unsplash. License: https://unsplash.com/license" />
                   <div class="card-body">
-                    <span class="meta"><time>{{ .PublishDate.Format "2 January 2006" }}</time> / {{ .Params.meals }}</span>
+                    <span class="meta">{{ .Params.meals }} / {{ .Params.difficulties }}</span>
                     <h4 class="display-5 mt-3">{{ .Title }}</h2>
                   </div>
                 </div>
