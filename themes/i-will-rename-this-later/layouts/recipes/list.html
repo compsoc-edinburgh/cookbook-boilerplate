@@ -17,7 +17,7 @@
             <li class="recipe-listing-item col">
               <a href="{{ .RelPermalink }}" role="article">
                 <div class="card h-100">
-                  <img src="https://via.placeholder.com/400x300?text=Placeholder" class="card-image-top mx-2 mt-2" alt="Placeholder courtesy of Placeholder.com" />
+                  <img src="https://source.unsplash.com/random?{{ .Title }}" class="card-image-top mx-1 mt-1" alt="Placeholder courtesy of Unsplash. License: https://unsplash.com/license" />
                   <div class="card-body">
                     <span class="meta"><time>{{ .PublishDate.Format "2 January 2006" }}</time> / {{ .Params.meals }}</span>
                     <h4 class="display-5 mt-3">{{ .Title }}</h2>

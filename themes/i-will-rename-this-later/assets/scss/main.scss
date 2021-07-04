@@ -3,13 +3,6 @@
 /* =======================================================*/
 /* Colors and Configuration for Bootstrap                 */
 /* =======================================================*/
-$text-dark: rgba(0, 0, 0, 0.87);
-$text-dark-hint: rgba(0, 0, 0, 0.60);
-$text-dark-disabled: rgba(0, 0, 0, 0.38);
-
-$text-light: rgba(255, 255, 255, 0.87);
-$text-light-hint: rgba(255, 255, 255, 0.6);
-$text-light-disabled: rgba(255, 255, 255, 0.38);
 
 $primary-darkest: #885d3a;
 $primary-darker: #af7c54;
@@ -23,6 +16,18 @@ $secondary-lighter: #ebf7cd;
 $tertiary-darker: #E8BAC9;
 $tertiary: #F2D0DA;
 $tertiary-lighter: #F4E3E1;
+
+$text-dark: rgba(0, 0, 0, 0.87);
+$text-dark-hint: rgba(0, 0, 0, 0.60);
+$text-dark-disabled: rgba(0, 0, 0, 0.38);
+
+$text-light: rgba(255, 255, 255, 0.87);
+$text-light-hint: rgba(255, 255, 255, 0.6);
+$text-light-disabled: rgba(255, 255, 255, 0.38);
+
+$text-primary: $primary-darkest;
+$text-primary-hint: $primary;
+$text-primary-disabled: rgba($text-primary, .38);
 
 $container-max-widths: (
   sm: 540px,
@@ -109,7 +114,8 @@ body {
     border-radius: 0;
 
     img {
-      transition: all 0.2s cubic-bezier(0.215, 0.610, 0.355, 1);
+      height: 30vh;
+      object-fit: cover;
     }
 
     h4 {
@@ -118,7 +124,7 @@ body {
 
     .meta {
       transition: color 0.2s cubic-bezier(0.215, 0.610, 0.355, 1);
-      color: $primary;
+      color: $text-primary-hint;
     }
   }
 
@@ -130,7 +136,7 @@ body {
     }
 
     .meta {
-      color: $text-light;
+      color: $text-light-hint;
     }
   }
 }
