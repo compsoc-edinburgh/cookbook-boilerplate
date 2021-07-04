@@ -10,12 +10,12 @@ $primary: #cc9e79;
 $primary-lighter: #e8c6ab;
 $primary-lightest: #F1DAC7;
 $bg: #fefefc;
-$secondary-darker: #bed18d;
-$secondary: #EAF7B7;
-$secondary-lighter: #ebf7cd;
-$tertiary-darker: #E8BAC9;
-$tertiary: #F2D0DA;
-$tertiary-lighter: #F4E3E1;
+$secondary-darker: #b7c98b;
+$secondary: #ebf7cd;
+$secondary-lighter: #eff7da;
+$tertiary-darker: #f7b096;
+$tertiary: #ffc1ab;
+$tertiary-lighter: #f8cebf;
 
 $text-dark: rgba(0, 0, 0, 0.87);
 $text-dark-hint: rgba(0, 0, 0, 0.60);
@@ -91,14 +91,14 @@ body {
 
 .add-recipe a {
   text-decoration: unset;
+  color: $text-dark;
 
   .card {
-    transition: background-color 0.15s cubic-bezier(0.215, 0.610, 0.355, 1)
+    transition: background-color 0.15s cubic-bezier(0.215, 0.610, 0.355, 1);
   }
 
   &:hover .card {
-    @extend .bg-primary;
-    color: $text-dark-hint;
+    background: $primary-lightest;
   }
 }
 
@@ -128,8 +128,12 @@ body {
     border: 0;
 
     img {
-      height: 30vh;
+      height: 25vh;
       object-fit: cover;
+
+      @include media-breakpoint-only(xs) {
+          height: 20vh;
+      }
     }
 
     h4 {
@@ -147,8 +151,8 @@ body {
     z-index: $zindex-popover;
 
     &::before {
-      background-color: $primary;
-      box-shadow: $box-shadow;
+      background-color: $tertiary;
+      box-shadow: 0 .5rem 1rem rgba($tertiary, .7);
     }
 
     .meta {
@@ -160,8 +164,13 @@ body {
   @media (prefers-reduced-motion: no-preference) {
     &:hover .card {
       &::before {
-        transform:scale(1.1);
+        transform: scaleX(1.08) scaleY(1.1);
+
+        @include media-breakpoint-up(lg) {
+          transform: scaleX(1.17) scaleY(1.1);
+        }
       }
     }
+
   }
 }

@@ -12,7 +12,7 @@
         <hr>
         <div class="add-recipe row row-cols-1 mb-4">
           <a href="https://github.com/{{ .Site.Params.cookbookRepo }}">
-            <div class="card border-primary">
+            <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Add your own recipe!</h5>
                 <p class="card-text">The format is <i>super</i> simple, it won't take minutes!</p>
@@ -20,7 +20,7 @@
             </div>
           </a>
         </div>
-        <ol class="recipe-listing row row-cols-2 row-cols-md-4 g-4">
+        <ol class="recipe-listing row row-cols-2 row-cols-lg-4 g-4">
           {{ $paginator := .Paginate (where (.Pages.ByTitle.Reverse).ByPublishDate.Reverse "Type" "recipes") 12 }}
 
           {{ range $paginator.Pages }}
