@@ -10,19 +10,26 @@
         <h1>{{ .Title }}</h1>
         <span>List of all recipes.</span>
         <hr>
-        <ol class="listing">
-          {{ $paginator := .Paginate (where (.Pages.ByTitle.Reverse).ByPublishDate.Reverse "Type" "recipes") }}
+        <ol class="recipe-listing row row-cols-2 row-cols-md-4 g-4">
+          {{ $paginator := .Paginate (where (.Pages.ByTitle.Reverse).ByPublishDate.Reverse "Type" "recipes") 12 }}
 
-          {{ range first 10 $paginator.Pages }}
-            <a href="{{ .RelPermalink  }}">
-              <li class="listing_item" role="article">
-                <h2>{{ .Title }}</h2>
-                <span class="pubdate">written: <time>{{ .PublishDate.Format "2 January, 2006" }}</time></span>
-              </li>
-            </a>
+          {{ range $paginator.Pages }}
+            <li class="recipe-listing-item col">
+              <a href="{{ .RelPermalink }}" role="article">
+                <div class="card h-100">
+                  <img src="https://via.placeholder.com/400x300?text=Placeholder" class="card-image-top mx-2 mt-2" alt="Placeholder courtesy of Placeholder.com" />
+                  <div class="card-body">
+                    <span class="meta"><time>{{ .PublishDate.Format "2 January 2006" }}</time> / {{ .Params.meals }}</span>
+                    <h4 class="display-5 mt-3">{{ .Title }}</h2>
+                  </div>
+                </div>
+              </a>
+            </li>
           {{ end }}
         </ol>
-        {{ template "_internal/pagination.html" . }}
+        <div class="d-flex justify-content-center mt-5">
+          {{ template "_internal/pagination.html" . }}
+        </div>
       </main>
       {{ partial "footer.html" }}
     </div>

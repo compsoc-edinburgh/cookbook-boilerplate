@@ -1,26 +1,48 @@
 @charset "UTF-8";
 
 /* =======================================================*/
-/* Configuration for Bootstrap using SASS variables       */
+/* Colors and Configuration for Bootstrap                 */
 /* =======================================================*/
+$text-dark: rgba(0, 0, 0, 0.87);
+$text-dark-hint: rgba(0, 0, 0, 0.60);
+$text-dark-disabled: rgba(0, 0, 0, 0.38);
+
+$text-light: rgba(255, 255, 255, 0.87);
+$text-light-hint: rgba(255, 255, 255, 0.6);
+$text-light-disabled: rgba(255, 255, 255, 0.38);
+
 $primary-darkest: #885d3a;
 $primary-darker: #af7c54;
 $primary: #cc9e79;
 $primary-lighter: #e8c6ab;
 $primary-lightest: #F1DAC7;
 $bg: #fefefc;
-$secondary-lighter: #ebf7cd;
-$secondary: #EAF7B7;
 $secondary-darker: #bed18d;
+$secondary: #EAF7B7;
+$secondary-lighter: #ebf7cd;
+$tertiary-darker: #E8BAC9;
+$tertiary: #F2D0DA;
+$tertiary-lighter: #F4E3E1;
 
 $container-max-widths: (
   sm: 540px,
   md: 720px,
   lg: 960px,
-  xl: 1140px
+  xl: 1140px /* remove xxl, limit width to 1140 to align with comp-soc.com */
+);
+
+$display-font-sizes: (
+  1: 4rem,
+  2: 3.5rem,
+  3: 3rem,
+  4: 2.5rem,
+  5: 2rem,
+  6: 1.5rem /* default bootstrap sizes are too big */
 );
 
 $font-family-base:"Lato", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", system-ui;
+
+$font-family-display: "Playfair Display", charter, Georgia, Cambria, "Times New Roman", Times, serif, system-ui;
 
 /* =======================================================*/
 /* Load Bootstrap                                         */
@@ -38,6 +60,77 @@ body {
 
 @each $display, $font-size in $display-font-sizes {
   .display-#{$display} {
-    font-family: "Playfair Display", charter, Georgia, Cambria, "Times New Roman", Times, serif, system-ui;
+    font-family: $font-family-display;
+  }
+}
+
+.background {
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+  width: 100vw;
+}
+
+.background img {
+  clip-path: url(#myClip);
+  margin-top: 300px;
+  width: 100%;
+}
+
+.background svg clipPath {
+  height: 150px;
+  width: 100vw;
+}
+
+.recipe-listing {
+  list-style-type: none;
+  padding: 0;
+}
+
+.recipe-listing-item {
+
+  a {
+    text-decoration: unset;
+  }
+
+  .card {
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      display: block;
+      width: 100%;
+      height: 100%;
+      transition: all 0.2s cubic-bezier(0.215, 0.610, 0.355, 1);
+    }
+
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+
+    img {
+      transition: all 0.2s cubic-bezier(0.215, 0.610, 0.355, 1);
+    }
+
+    h4 {
+      color: $text-dark;
+    }
+
+    .meta {
+      transition: color 0.2s cubic-bezier(0.215, 0.610, 0.355, 1);
+      color: $primary;
+    }
+  }
+
+  &:hover .card {
+    &::before {
+      background-color: $primary;
+      transform:scale(1.1);
+      @extend .shadow;
+    }
+
+    .meta {
+      color: $text-light;
+    }
   }
 }
