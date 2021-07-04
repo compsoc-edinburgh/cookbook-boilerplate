@@ -45,6 +45,8 @@ $display-font-sizes: (
   6: 1.5rem /* default bootstrap sizes are too big */
 );
 
+$border-radius: 0rem;
+
 $font-family-base:"Lato", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", system-ui;
 
 $font-family-display: "Playfair Display", charter, Georgia, Cambria, "Times New Roman", Times, serif, system-ui;
@@ -87,6 +89,19 @@ body {
   width: 100vw;
 }
 
+.add-recipe a {
+  text-decoration: unset;
+
+  .card {
+    transition: background-color 0.15s cubic-bezier(0.215, 0.610, 0.355, 1)
+  }
+
+  &:hover .card {
+    @extend .bg-primary;
+    color: $text-dark-hint;
+  }
+}
+
 .recipe-listing {
   list-style-type: none;
   padding: 0;
@@ -111,7 +126,6 @@ body {
 
     background-color: transparent;
     border: 0;
-    border-radius: 0;
 
     img {
       height: 30vh;
@@ -129,14 +143,25 @@ body {
   }
 
   &:hover .card {
+    /* Render the box-shadow above the item below in the listing */
+    z-index: $zindex-popover;
+
     &::before {
       background-color: $primary;
-      transform:scale(1.1);
-      @extend .shadow;
+      box-shadow: $box-shadow;
     }
 
     .meta {
-      color: $text-light-hint;
+      color: $text-dark-hint;
+    }
+  }
+
+  /* Popup if reduced-motion is not set */
+  @media (prefers-reduced-motion: no-preference) {
+    &:hover .card {
+      &::before {
+        transform:scale(1.1);
+      }
     }
   }
 }

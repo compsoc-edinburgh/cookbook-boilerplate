@@ -6,8 +6,8 @@ relativeURLs: true
 params:
   # slogan
   slogan: "Hey, good lookin', whatcha cookin'? Still testing."
-  # controls where the comments are put.
-  commentRepo: yutotakano/cook-book
+  # controls where comments/new recipes are put.
+  cookbookRepo: compsoc-edinburgh/cook-book
 
 taxonomies:
   difficulty: difficulties
