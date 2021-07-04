@@ -97,7 +97,7 @@ body {
     transition: background-color 0.15s cubic-bezier(0.215, 0.610, 0.355, 1);
   }
 
-  &:hover .card {
+  &:hover .card, &:focus .card {
     background: $primary-lightest;
   }
 }
@@ -107,11 +107,8 @@ body {
   padding: 0;
 }
 
-.recipe-listing-item {
-
-  a {
-    text-decoration: unset;
-  }
+.recipe-listing-item a {
+  text-decoration: unset;
 
   .card {
     &::before {
@@ -150,7 +147,7 @@ body {
     }
   }
 
-  &:hover .card {
+  &:hover .card, &:focus .card {
     /* Render the box-shadow above the item below in the listing */
     z-index: $zindex-popover;
 
@@ -166,7 +163,7 @@ body {
 
   /* Popup if reduced-motion is not set */
   @media (prefers-reduced-motion: no-preference) {
-    &:hover .card {
+    &:hover .card, &:focus .card {
       &::before {
         transform: scaleX(1.08) scaleY(1.1);
 
