@@ -1,4 +1,4 @@
-<header>
+<header class="mb-3">
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container justify-content-center justify-content-sm-between">
       <div class="navbar-toggler-wrapper d-lg-none">
@@ -7,7 +7,7 @@
         </button>
       </div>
 
-      <div class="collapse navbar-collapse d-lg-flex mb-3" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse d-lg-flex" id="navbarSupportedContent">
         <a class="navbar-brand flex-fill" href="{{ $.Site.BaseURL }}/">
           <img src="{{ (resources.Get "/img/cookbook-horizontal.svg").Permalink }}" alt="CompSoc Edinburgh Logo" class="pl-1 pl-sm-0">
         </a>
@@ -20,11 +20,12 @@
           </li>
           {{ end }}
         </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+        <form class="d-flex" method="GET" action="{{ $.Site.BaseURL }}/search">
+          <input class="form-control me-2" type="search" placeholder="Search recipes" aria-label="Search">
+          <button class="btn bg-secondary btn-outline-success" type="submit">Search</button>
         </form>
       </div>
     </div>
   </nav>
+  <hr>
 </header>
