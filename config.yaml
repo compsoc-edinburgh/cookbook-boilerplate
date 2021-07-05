@@ -14,3 +14,12 @@ taxonomies:
   meal: meals
   allergen: allergens
   tag: tags
+
+menu:
+  main:
+  - identifier: recipes
+    name: All recipes
+    url: /recipes/
+  - name: Github
+    url: https://github.com/compsoc-edinburgh/cook-book
+

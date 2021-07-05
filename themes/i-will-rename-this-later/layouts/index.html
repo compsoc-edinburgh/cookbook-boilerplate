@@ -6,6 +6,7 @@
   </head>
   <body>
     <div class="container">
+      {{ partial "navbar.html" . }}
       <main>
         <h1>{{ .Site.Title }} Main Page</h1>
         <span>{{ .Site.Params.slogan }}</span>

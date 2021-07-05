@@ -6,6 +6,7 @@
   </head>
   <body>
     <div class="container">
+      {{ partial "navbar.html" . }}
       <main>
         <h1>{{ .Title }}</h1>
         <span>List of dishes that are {{ .Title }}. We do not make any guarantees and the labeling is up to the contributor of each recipe.</span>

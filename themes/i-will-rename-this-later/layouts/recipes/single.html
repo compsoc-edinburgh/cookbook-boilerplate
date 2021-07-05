@@ -11,6 +11,7 @@
   </head>
   <body>
     <div class="container">
+      {{ partial "navbar.html" . }}
       <main>
         <article class="recipe">
           <!-- Header -->
@@ -29,7 +30,7 @@
             <div class="recipe-properties">
               <time class="recipe-property" datetime="{{ .Date }}">{{ .Date.Format "2 January, 2006" }}</time>
               <span class="recipe-property"><b>Skill:</b> {{ .Page.Params.difficulties }}</span>
-              {{ if isset .Page.Params "serves" }}<span class="recipe-property"><b>Serves:</b> {{ .Page.Params.serves }}</span>{{ end }}
+              {{ with .Page.Params.serves }}<span class="recipe-property"><b>Serves:</b> {{ . }}</span>{{ end }}
             </div>
           </div>
           <section class="recipe-body row justify-content-center">

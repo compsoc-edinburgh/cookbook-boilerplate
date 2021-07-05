@@ -7,6 +7,7 @@
   </head>
   <body>
     <div class="container">
+      {{ partial "navbar.html" . }}
       <main>
         <h1>{{ .Title }}</h1>
         <span>List of {{ .Data.Plural }}.</span>
