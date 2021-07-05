@@ -23,14 +23,25 @@
                 {{ $tags = slice .Page.Params.tags }}
               {{ end }}
               {{ range $val := $tags -}}
-                <span class="recipe-keyword">{{ $val }}</span>
+                <a class="recipe-keyword" href="{{ $.Site.BaseURL }}/tags/{{ $val | urlize }}">{{ $val }}</a>
               {{- end }}
             </div>
-            <h1 class="display-2 mt-3 mb-4 text-center">{{ .Title }}</h1>
-            <div class="recipe-properties">
-              <time class="recipe-property" datetime="{{ .Date }}">{{ .Date.Format "2 January, 2006" }}</time>
-              <span class="recipe-property"><b>Skill:</b> {{ .Page.Params.difficulties }}</span>
-              {{ with .Page.Params.serves }}<span class="recipe-property"><b>Serves:</b> {{ . }}</span>{{ end }}
+            <h1 class="display-2 mb-4 text-center">{{ .Title }}</h1>
+            <div class="recipe-properties d-flex">
+              <div class="recipe-property">
+                <b>Published</b><br>
+                <time datetime="{{ .Date }}">{{ .Date.Format "2 Jan, 2006" }}</time>
+              </div>
+              <div class="recipe-property">
+                <b>Difficulty</b><br>
+                {{ .Page.Params.difficulties }}
+              </div>
+              {{ with .Page.Params.serves }}
+              <div class="recipe-property">
+                <b>Serves</b><br>
+                {{ . }}
+              </div>
+              {{ end }}
             </div>
           </div>
           <section class="recipe-body row justify-content-center">

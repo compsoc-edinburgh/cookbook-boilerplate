@@ -8,10 +8,8 @@
     <div class="container">
       {{ partial "navbar.html" . }}
       <main>
-        <h1>{{ .Title }}</h1>
-        <span>List of all recipes.</span>
-        <hr>
-        <div class="add-recipe row row-cols-1 mb-4">
+        <h1 class="display-2 text-center mb-5">{{ .Title }}</h1>
+        <div class="add-recipe row row-cols-1 mb-4 d-none d-lg-block">
           <a href="https://github.com/{{ .Site.Params.cookbookRepo }}">
             <div class="card">
               <div class="card-body">
@@ -31,7 +29,7 @@
                   <img src="https://source.unsplash.com/random?{{ .Title }}" class="card-image-top mx-1 mt-1" alt="Placeholder courtesy of Unsplash. License: https://unsplash.com/license" />
                   <div class="card-body">
                     <span class="meta">{{ .Params.meals }} / {{ .Params.difficulties }}</span>
-                    <h4 class="display-5 mt-3">{{ .Title }}</h2>
+                    <h4 class="display-5 mt-lg-3">{{ .Title }}</h2>
                   </div>
                 </div>
               </a>
