@@ -12,7 +12,6 @@ params:
 taxonomies:
   difficulty: difficulties
   meal: meals
-  allergen: allergens
   tag: tags
 
 menu:

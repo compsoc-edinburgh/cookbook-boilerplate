@@ -18,21 +18,20 @@ layouts/
 ├── index.html        <- Homepage
 ├── partials/
 │   ├── preamble.html <- Universal meta tags, CSS imports, etc
+│   ├── navbar.html   <- Universal navbar contained in a <header>
+│   ├── listing.html  <- Paginator and recipe listing, requires dict as argument
 │   ├── footer.html   <- <footer> element and copyright.
-│   ├── postamble.html <- Universal scripts before body closes
+│   ├── postamble.html <- Scripts before body closes
 │   └── comments.html <- Giscus comment snippet
-├── shortcodes/
-│   └── image.html
 ├── recipes/
 │   ├── list.html     <- /recipes
 │   └── single.html   <- /recipes/name
 ├── meals/ | allergens/ | difficulties/
 │   ├── list.html     <- /<grouping>
 │   └── single.html   <- /<grouping>/name
-├── taxonomy/
-│   ├── list.html     <- in case a new taxonomy is added in the future
-│   └── single.html   <- in case a new taxonomy is added in the future
 └── _default/
+│   ├── taxonomy.html <- tags, and other taxonomies in the future
+│   ├── term.html     <- tags, and other taxonomies in the future
     └── _markup
         └── render-link.html <- custom link renderer to open external ones in new tabs
 ```
