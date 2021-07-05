@@ -25,10 +25,10 @@ layouts/
 │   └── comments.html <- Giscus comment snippet
 ├── recipes/
 │   ├── list.html     <- /recipes
-│   └── single.html   <- /recipes/name
+│   └── single.html   <- /recipes/<name>
 ├── meals/ | allergens/ | difficulties/
-│   ├── list.html     <- /<grouping>
-│   └── single.html   <- /<grouping>/name
+│   ├── taxonomy.html <- /<grouping>
+│   └── term.html     <- /<grouping>/<name>
 └── _default/
 │   ├── taxonomy.html <- tags, and other taxonomies in the future
 │   ├── term.html     <- tags, and other taxonomies in the future
