@@ -19,26 +19,7 @@
             </div>
           </a>
         </div>
-        <ol class="recipe-listing row row-cols-2 row-cols-lg-4 g-4">
-          {{ $paginator := .Paginate (where (.Pages.ByTitle.Reverse).ByPublishDate.Reverse "Type" "recipes") 12 }}
-
-          {{ range $paginator.Pages }}
-            <li class="recipe-listing-item col">
-              <a href="{{ .RelPermalink }}" role="article">
-                <div class="card h-100">
-                  <img src="https://source.unsplash.com/random?{{ .Title }}" class="card-image-top mx-1 mt-1" alt="Placeholder courtesy of Unsplash. License: https://unsplash.com/license" />
-                  <div class="card-body">
-                    <span class="meta">{{ .Params.meals }} / {{ .Params.difficulties }}</span>
-                    <h4 class="display-5 mt-lg-3">{{ .Title }}</h2>
-                  </div>
-                </div>
-              </a>
-            </li>
-          {{ end }}
-        </ol>
-        <div class="d-flex justify-content-center mt-5">
-          {{ template "_internal/pagination.html" . }}
-        </div>
+        {{ partial "listing.html" (dict "amount" 12 "pages" (.Pages.ByTitle.Reverse).ByPublishDate.Reverse "page" .) }}
       </main>
       {{ partial "footer.html" . }}
     </div>

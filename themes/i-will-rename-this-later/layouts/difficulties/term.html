@@ -8,22 +8,9 @@
     <div class="container">
       {{ partial "navbar.html" . }}
       <main>
-        <h1>{{ .Title }}</h1>
-        <span>List of dishes that are supposedly ranked in difficulty as {{.Data.Term}}.</span>
-        <hr>
-        <ol class="listing">
-          {{ $paginator := .Paginate (where .Pages.ByPublishDate.Reverse "Type" "recipes") }}
-
-          {{ range first 10 $paginator.Pages }}
-            <a href="{{ .RelPermalink  }}">
-              <li class="listing_item" role="article">
-                <h2>{{ .Title }}</h2>
-                <span class="pubdate">written: <time>{{ .PublishDate.Format "2 January, 2006" }}</time></span>
-              </li>
-            </a>
-          {{ end }}
-        </ol>
-        {{ template "_internal/pagination.html" . }}
+        <h1 class="display-2 text-center">{{ .Title | title }}</h1>
+        <h4 class="text-center mb-5">List of recipes ranked as {{ .Title }}.</h4>
+        {{ partial "listing.html" (dict "amount" 12 "pages" (.Pages.ByTitle.Reverse).ByPublishDate.Reverse "page" .) }}
       </main>
       {{ partial "footer.html" . }}
     </div>
