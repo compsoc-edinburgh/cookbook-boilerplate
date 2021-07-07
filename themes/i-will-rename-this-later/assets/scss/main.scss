@@ -106,6 +106,7 @@ hr {
 
 
 .add-recipe a {
+  display: block;
   text-decoration: unset;
   color: $text-dark;
 
@@ -196,6 +197,10 @@ hr {
     }
 
   }
+}
+
+.sticky-lg-top.filters {
+  top: $spacer;
 }
 
 .recipe-keywords {

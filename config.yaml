@@ -23,4 +23,4 @@ menu:
     url: https://github.com/compsoc-edinburgh/cook-book
 
 outputs:
-  home: ["html", "json"]
+  section: ["html", "json"]
