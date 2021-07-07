@@ -21,7 +21,7 @@
           {{ end }}
         </ul>
         {{ if not (eq .Page.Title "Recipes") }}
-        <form class="d-flex" method="GET" action="{{ $.Site.BaseURL }}/search">
+        <form class="d-flex" method="GET" action="{{ $.Site.BaseURL }}/recipes">
           <input class="form-control me-2" name="q" type="search" placeholder="Search recipes" aria-label="Search">
           <button class="btn bg-secondary btn-outline-success" type="submit">Search</button>
         </form>

@@ -88,6 +88,14 @@
     {{ $fuzzysort := resources.Get "/fuzzysort/fuzzysort.js" | resources.Minify | resources.Fingerprint }}
     <script src="{{ $fuzzysort.Permalink }}"></script>
     {{ $customScript := resources.Get "/js/search.js" | resources.Minify | resources.Fingerprint }}
-    <script src="{{ $customScript.Permalink }}"></script>
+    <script async src="{{ $customScript.Permalink }}"></script>
+    <!-- None are loaded with async because collapse.js depends on the previous ones -->
+    <script type="text/javascript" src="{{ (resources.Get "/bootstrap/js/dist/dom/data.js").Permalink }}"></script>
+    <script type="text/javascript" src="{{ (resources.Get "/bootstrap/js/dist/dom/event-handler.js").Permalink }}"></script>
+    <script type="text/javascript" src="{{ (resources.Get "/bootstrap/js/dist/dom/manipulator.js").Permalink }}"></script>
+    <script type="text/javascript" src="{{ (resources.Get "/bootstrap/js/dist/dom/selector-engine.js").Permalink }}"></script>
+    <script type="text/javascript" src="{{ (resources.Get "/bootstrap/js/dist/base-component.js").Permalink }}"></script>
+    <script type="text/javascript" src="{{ (resources.Get "/bootstrap/js/dist/collapse.js").Permalink }}"></script>
+
   </body>
 </html>
