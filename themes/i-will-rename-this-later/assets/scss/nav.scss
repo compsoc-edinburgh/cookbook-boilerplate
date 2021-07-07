@@ -15,6 +15,7 @@
   margin-right: 0; /*override bootstrap's default*/
   display: block;
   text-align: center;
+  height: auto;
 
   @include media-breakpoint-up(lg) {
     text-align: unset;

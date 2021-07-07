@@ -2,28 +2,55 @@
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container justify-content-center justify-content-sm-between">
       <div class="navbar-toggler-wrapper d-lg-none">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
       </div>
 
       <div class="collapse navbar-collapse d-lg-flex" id="navbarSupportedContent">
         <a class="navbar-brand flex-fill" href="{{ $.Site.BaseURL }}/">
-          <img src="{{ (resources.Get "/img/cookbook-horizontal.svg").Permalink }}" alt="CompSoc Edinburgh Logo" class="pl-1 pl-sm-0">
+          <!-- The width/height are provided not as exact measurements but as a
+            guide to the browser to prevent layout shifts.
+            See https://web.dev/optimize-cls/ -->
+          <img
+            src="{{ (resources.Get "/img/cookbook-horizontal.svg").Permalink }}"
+            alt="CompSoc Cookbook Logo"
+            width="320"
+            height="50"
+            class="pl-1 pl-sm-0">
         </a>
 
         <ul class="navbar-nav mr-auto">
           {{ $currentPage := . }}
           {{ range .Site.Menus.main }}
           <li class="nav-item">
-            <a class="nav-link {{ if $currentPage.IsMenuCurrent "main" . }}active{{ end }}" aria-current="page" href="{{ .URL }}">{{ .Name }}</a>
+            <a
+              class="nav-link {{ if $currentPage.IsMenuCurrent "main" . }}active{{ end }}"
+              aria-current="page"
+              href="{{ .URL }}">
+              {{ .Name }}
+            </a>
           </li>
           {{ end }}
         </ul>
         {{ if not (eq .Page.Title "Recipes") }}
         <form class="d-flex" method="GET" action="{{ $.Site.BaseURL }}/recipes">
-          <input class="form-control me-2" name="q" type="search" placeholder="Search recipes" aria-label="Search">
-          <button class="btn bg-secondary btn-outline-success" type="submit">Search</button>
+          <input
+            class="form-control me-2"
+            name="q"
+            type="search"
+            placeholder="Search recipes"
+            aria-label="Search">
+          <button class="btn bg-secondary btn-outline-success" type="submit">
+            Search
+          </button>
         </form>
         {{ end }}
       </div>
