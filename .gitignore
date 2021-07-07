@@ -1,4 +1,5 @@
 content/recipe/*
 content/recipes/*
+!content/recipes/view-all.md
 public/
 resources/
