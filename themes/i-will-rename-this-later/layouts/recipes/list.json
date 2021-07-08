@@ -4,6 +4,6 @@
       "title" .Title
       "params" .Params
       "body" .Plain
-      "permalink" .RelPermalink) -}}
+      "permalink" .Permalink) -}}
 {{- end -}}
 {{- $.Scratch.Get "index" | jsonify -}}
