@@ -204,7 +204,9 @@ function updateRecipeDOM(recipes) {
       "<li class=\"recipe-listing-item col\">" +
         "<a href=\"." + properlyRelPermalink + "\" role=\"article\">" +
           "<div class=\"card h-100\">" +
-            // "<img src=\"https://source.unsplash.com/random?" + escape(recipe.title) + "\" class=\"card-image-top mx-1 mt-1\" alt=\"Placeholder courtesy of Unsplash. License: https://unsplash.com/license\" />" +
+            (recipe.params.previewimage ?
+              "<img loading=\"lazy\" src=\"" + recipe.params.previewimage + "\" class=\"card-image-top mx-1 mt-1\" alt=\"Delicious-looking image of " + escape(recipe.title) + "\" />"
+              : "") +
             "<div class=\"card-body\">" +
               "<span class=\"meta\">" + escape(recipe.params.meals) + "/" + escape(recipe.params.difficulties) + "</span>" +
               "<h4 class=\"display-5 mt-lg-3\">" + escape(recipe.title) + "</h2>" +

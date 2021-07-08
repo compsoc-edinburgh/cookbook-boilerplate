@@ -4,6 +4,7 @@ from glob import glob
 import html
 import subprocess
 import yaml
+import re
 
 parser = argparse.ArgumentParser(description='Convert the cook-book directory structure to Hugo structure.')
 parser.add_argument('-i', '--input-dir', type=str, required=True,
@@ -42,9 +43,11 @@ def main():
         # read the existing front matter (if any) and contents
         with open(recipe, "r", encoding="utf-8") as f:
             contents = f.readlines()
-        existing_front_matter, name, contents = split_contents(contents)
+        existing_front_matter, name, preview_image, contents = split_contents(contents)
 
         front_matter.setdefault("title", name)
+        if preview_image is not None:
+            front_matter.setdefault("previewimage", preview_image)
 
         # merge the front matters (3.9+)
         if existing_front_matter:
@@ -57,13 +60,17 @@ def main():
             f.write("---\n\n")
             f.writelines(contents)
 
-def split_contents(contents: list[str]) -> (dict, str, list[str]):
+def split_contents(contents: list[str]) -> (dict, str, str, list[str]):
     """
-    Split a list of all lines in a file into front matter
-    and just regular markdown content.
+    Split a list of all lines in a file into:
+      front matter dictionary
+      name of recipe or <unnamed>
+      url for the first image (only supports ![]() style), None if not found
+      all markdown lines in the content apart from the recipe name
     """
     front_matter = []
     recipe_name = "<unnamed>"
+    image_url = None
     meaningful_stuff = []
     currently_fm = False
     for line in contents:
@@ -74,6 +81,10 @@ def split_contents(contents: list[str]) -> (dict, str, list[str]):
         if line[:2] == "# " and recipe_name == "<unnamed>":
             recipe_name = line[2:].strip()
             continue
+
+        result = re.match("^!\[(.+)\]\((.+)\)", line)
+        if result is not None:
+            image_url = result.group(2)
 
         if currently_fm:
             front_matter.append(line)
@@ -86,7 +97,7 @@ def split_contents(contents: list[str]) -> (dict, str, list[str]):
         parsed = {}
         meaningful_stuff = contents
 
-    return (parsed, recipe_name, meaningful_stuff)
+    return (parsed, recipe_name, image_url, meaningful_stuff)
 
 if __name__ == "__main__":
     main()
