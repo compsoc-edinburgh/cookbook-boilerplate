@@ -4,11 +4,11 @@
 /* Colors and Configuration for Bootstrap                 */
 /* =======================================================*/
 
-$primary-darkest: #885d3a;
-$primary-darker: #af7c54;
-$primary: #cc9e79;
-$primary-lighter: #e8c6ab;
-$primary-lightest: #F1DAC7;
+$primary-darkest: #64472e;
+$primary-darker: #885d3a;
+$primary: #af7c54;
+$primary-lighter: #cc9e79;
+$primary-lightest: #e8c6ab;
 $bg: #fefefc;
 $secondary-darker: #b7c98b;
 $secondary: #ebf7cd;
@@ -25,7 +25,10 @@ $text-light: rgba(255, 255, 255, 0.87);
 $text-light-hint: rgba(255, 255, 255, 0.6);
 $text-light-disabled: rgba(255, 255, 255, 0.38);
 
-$text-primary: $primary-darkest;
+// As much as I would like to add supports-color-scheme support,
+// twbs/bootstrap#27514 is blocking.
+
+$text-primary: $primary-darker;
 $text-primary-hint: $primary;
 $text-primary-disabled: rgba($text-primary, .38);
 
