@@ -158,16 +158,23 @@ function negate(fn) {
  * @param {string} target The target string
  */
 function scoreMultiWordSearch(query, target) {
+  // if exact match (base case)
   if (target.includes(query)) return 0;
 
+  // otherwise, see if we can split into further words
   let nextSpace = query.indexOf(" ");
   if (nextSpace > -1) {
     while (nextSpace > -1) {
+      // for all splits, e.g. "abc def ghi" => [["abc", "def ghi"],["abc def", "ghi"]]
       before = query.slice(0, nextSpace);
       after = query.slice(nextSpace + 1, query.length);
+      // recursively get the score and reduce it by 100.
+      // If not found (-Infinity), arithmetic on it is ignored so all good.
       score1 = scoreMultiWordSearch(before, target) - 100;
       score2 = scoreMultiWordSearch(after, target) - 100;
       if (score1 != -Infinity || score2 != -Infinity) {
+        // one of the sliced word/phrases had an exact match, so return the
+        // score. They are both negative but closer to zero is better.
         return Math.max(score1, score2);
       }
 
@@ -205,6 +212,7 @@ function filterRecipes(recipes, filters) {
           let arbitraryMagicNumber = 5;
           itemWithScore.searchScore = (bodyScore - 100) * arbitraryMagicNumber;
         }
+
         return itemWithScore;
       })
       .sort((a, b) => a.searchScore <= b.searchScore ? 1 : -1)
