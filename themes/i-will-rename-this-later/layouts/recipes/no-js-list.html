@@ -9,6 +9,14 @@
       {{ partial "navbar.html" . }}
       <main>
         <h1 class="display-2 text-center mb-5" id="page-title">All Recipes (no js)</h1>
+        <section class="mb-5">
+          <h2>You may also want to</h2>
+          {{ range $taxonomy_term, $taxonomy := .Site.Taxonomies }}
+          {{ with $.Site.GetPage (printf "/%s" $taxonomy_term) }}
+          <a href="{{ .Page.RelPermalink }}" class="btn btn-outline-primary">Browse by <b>{{ .Page.Title }}</b></a>
+          {{ end }}
+          {{ end }}
+        </section>
         <div class="add-recipe row row-cols-1 mb-4 d-none d-lg-block">
           <a href="https://github.com/{{ .Site.Params.cookbookRepo }}/new/main/?filename=main_courses/0-easy/foo.md&value=---%0Akeywords%3A%20%5Bbabylonian%2C%20fresh%2C%20vegetarian%5D%0Aallergens%3A%0A-%20milk%0Aserves%3A%2030%20cookies%0A---%0A%0A%23%20Grandma%27s%20Milk%20Chocolate%20Cookies%0A%0AThey%20always%20turn%20out%20delicious%21%0A%0A%23%23%20Ingredients%0A%0A%2A%2030g%20of%20molten%20hearts%0A%2A%2070g%20of%20unsalted%20butter%0A%2A%20100ml%20milk%0A%0A%23%23%20Blahblah&message=add%20my%20&delicious%20recipe">
             <div class="card">
@@ -24,7 +32,9 @@
             <li class="recipe-listing-item col">
               <a href="{{ .RelPermalink }}" role="article">
                 <div class="card h-100">
-                  <img src="https://source.unsplash.com/random?{{ .Title }}" class="card-image-top mx-1 mt-1" alt="Placeholder courtesy of Unsplash. License: https://unsplash.com/license" />
+                  {{ if (isset .Params "previewimage") }}
+                  <img loading="lazy" src="{{ .Params.previewimage }}" class="card-image-top mx-1 mt-1" alt="Delicious-looking image of {{ .Title }}" />
+                  {{ end }}
                   <div class="card-body">
                     <span class="meta">{{ .Params.meals }} / {{ .Params.difficulties }}</span>
                     <h4 class="display-5 mt-3">{{ .Title }}</h2>

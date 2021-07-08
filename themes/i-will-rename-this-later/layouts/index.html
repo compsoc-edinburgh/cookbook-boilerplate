@@ -40,15 +40,6 @@
             {{ end }}
           </ol>
         </section>
-        <section class="mt-5 mb-5">
-          <h2>Don't know what to cook?</h2>
-          {{ range $taxonomy_term, $taxonomy := .Site.Taxonomies }}
-          {{ with $.Site.GetPage (printf "/%s" $taxonomy_term) }}
-          <a href="{{ .Page.RelPermalink }}" class="btn btn-outline-primary">Browse by <b>{{ .Page.Title }}</b></a>
-          {{ end }}
-          {{ end }}
-        </section>
-        <br>
       </main>
       {{ partial "footer.html" . }}
     </div>
