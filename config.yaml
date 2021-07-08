@@ -7,8 +7,12 @@ params:
   # slogan
   slogan: "Hey, good lookin', whatcha cookin'? Still testing."
   # controls where comments/new recipes are put.
+  # repo requires GitHub Discussions to be enabled & Giscus applet installed
   cookbookRepo: compsoc-edinburgh/cook-book
 
+# allergen is not a taxonomy because its functionality is different -- exclusion.
+# It is implemented as simply a custom Param (identical front matter), parsed
+# specially inside the filter page (/recipes).
 taxonomies:
   difficulty: difficulties
   meal: meals
