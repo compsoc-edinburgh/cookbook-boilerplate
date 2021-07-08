@@ -6,8 +6,9 @@ relativeURLs: true
 params:
   # slogan
   slogan: "Hey, good lookin', whatcha got cookin'?"
-  # controls where comments/new recipes are put.
-  # repo requires GitHub Discussions to be enabled & Giscus applet installed
+  # controls where all links to GitHub link to. Comments are not controlled by
+  # this since they also require a hash ID: go into comments.html to change the
+  # repo.
   cookbookRepo: compsoc-edinburgh/cook-book
 
 # allergen is not a taxonomy because its functionality is different -- exclusion.
