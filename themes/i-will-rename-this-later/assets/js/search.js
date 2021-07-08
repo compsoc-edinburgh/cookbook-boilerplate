@@ -267,7 +267,14 @@ for (let i = 0; i < checkboxes.length; i++) {
 // When a user presses the back button after performing searches or filtering,
 // read the previous state and update the DOM accordingly.
 window.addEventListener("popstate", (event) => {
-  setDOMFilters(event.state);
-  let recipes = filterRecipes(window.recipesData || [], event.state);
+  // event.state might not be defined if popstate popped back to the first page
+  // load, before any pushStates.
+  let state = event.state;
+  if (!event.state) {
+    state = { q: "", excludeAllergens: [], includeTaxonomies: {}};
+  }
+
+  setDOMFilters(state);
+  let recipes = filterRecipes(window.recipesData || [], state);
   updateRecipeDOM(recipes);
-})
+});
