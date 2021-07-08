@@ -23,6 +23,7 @@
 
   img {
     height: 30px;
+    width: auto;
 
     @include media-breakpoint-up(lg) {
       height: auto;
