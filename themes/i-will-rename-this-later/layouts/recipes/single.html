@@ -19,11 +19,11 @@
             <div class="recipe-keywords">
 
               <time class="recipe-keyword" datetime="{{ .Date }}">{{ .Date.Format "2 Jan, 2006" }}</time>
-                /
+                •
                 <b><a class="recipe-keyword" href="{{ printf "/difficulties/%s" (.Page.Params.difficulties | urlize) | relURL }}">
                   {{ .Page.Params.difficulties }}
                 </a></b>
-                /
+                •
                 <b><a class="recipe-keyword" href="{{ printf "/meals/%s" (.Page.Params.meals | urlize) | relURL }}">
                   {{ .Page.Params.meals }}
                 </a></b>
