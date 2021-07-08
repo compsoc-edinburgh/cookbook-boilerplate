@@ -23,7 +23,7 @@
                 {{ $tags = slice .Page.Params.tags }}
               {{ end }}
               {{ range $val := $tags -}}
-                <a class="recipe-keyword" href="{{ $.Site.BaseURL }}/tags/{{ $val | urlize }}">{{ $val }}</a>
+                <a class="recipe-keyword" href="{{ printf "/tags/%s" ($val | urlize) | relURL }}">{{ $val }}</a>
               {{- end }}
             </div>
             <h1 class="display-2 mb-4 text-center">{{ .Title }}</h1>

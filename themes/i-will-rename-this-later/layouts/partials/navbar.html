@@ -41,7 +41,7 @@
           {{ end }}
         </ul>
         {{ if not (eq .Page.Title "Recipes") }}
-        <form class="d-flex" method="GET" action="{{ $.Site.BaseURL }}/recipes">
+        <form class="d-flex" method="GET" action="{{ "recipes" | relURL }}">
           <input
             class="form-control me-2"
             name="q"

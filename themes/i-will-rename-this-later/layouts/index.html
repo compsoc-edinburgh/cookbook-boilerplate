@@ -14,7 +14,7 @@
           <h2>Most Recently Updated Recipes</h2>
           {{ range first 3 (where .Site.RegularPages.ByPublishDate.Reverse "Type" "recipes") }}
           <article>
-            <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+            <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
             <time>{{ .Date.Format "2 Jan, 2006" }}</time>
           </article>
           {{ end }}
@@ -27,7 +27,7 @@
           <ul>
           {{ range $taxonomy_term, $taxonomy := .Site.Taxonomies }}
             {{ with $.Site.GetPage (printf "/%s" $taxonomy_term) }}
-              <li><a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a></li>
+              <li><a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a></li>
             {{ end }}
           {{ end }}
           </ul>
