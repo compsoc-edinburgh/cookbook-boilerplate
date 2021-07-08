@@ -88,8 +88,6 @@
       {{ partial "footer.html" . }}
     </div>
     {{ partial "postamble.html" }}
-    {{ $fuzzysort := resources.Get "/fuzzysort/fuzzysort.js" | resources.Minify | resources.Fingerprint }}
-    <script src="{{ $fuzzysort.Permalink }}"></script>
     {{ $customScript := resources.Get "/js/search.js" | resources.Minify | resources.Fingerprint }}
     <script async src="{{ $customScript.Permalink }}"></script>
     <!-- None are loaded with async because collapse.js depends on the previous ones -->

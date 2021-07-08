@@ -147,6 +147,38 @@ function negate(fn) {
 }
 
 /**
+ * Search a query against a target and return a positive integer score. 0 is a
+ * perfect char-for-char match, the lower the score the further away (maybe only
+ * a word matches), and -Infinity means no match.
+ *
+ * Typos and any sort of fuzzy matching is not supported, as it seems overkill
+ * to implement this (or even add a dependency) for compsoc cookbook.
+ *
+ * @param {string} query Query to search for, space separated
+ * @param {string} target The target string
+ */
+function scoreMultiWordSearch(query, target) {
+  if (target.includes(query)) return 0;
+
+  let nextSpace = query.indexOf(" ");
+  if (nextSpace > -1) {
+    while (nextSpace > -1) {
+      before = query.slice(0, nextSpace);
+      after = query.slice(nextSpace + 1, query.length);
+      score1 = scoreMultiWordSearch(before, target) - 100;
+      score2 = scoreMultiWordSearch(after, target) - 100;
+      if (score1 != -Infinity || score2 != -Infinity) {
+        return Math.max(score1, score2);
+      }
+
+      nextSpace = query.indexOf(" ", nextSpace + 1);
+    }
+  }
+
+  return -Infinity;
+}
+
+/**
  * Filters the list of recipes by the set filters, and returns the remaining
  * recipes.
  * @param {array} recipes Array of recipes
@@ -155,9 +187,28 @@ function negate(fn) {
 function filterRecipes(recipes, filters) {
   let results = recipes;
   if (filters.q) {
-    results = fuzzysort.go(filters.q, recipes, {
-      keys: ["title"]
-    }).map((elem) => elem.obj);
+    results = recipes
+      .map((item) => {
+        let titleScore = scoreMultiWordSearch(filters.q.toLowerCase(), item.title.toLowerCase());
+        let bodyScore = scoreMultiWordSearch(filters.q.toLowerCase(), item.body.toLowerCase());
+
+        // JavaScript's .map() creates a new array but its contents point to the
+        // same reference object, so clone it with the dots before adding a new
+        // field. Without this, searchScore will persist between different searches.
+        let itemWithScore = {...item};
+
+        // Some really bad heuristics, would love if anyone could come up with
+        // an improved algorithm. But tbh it does seem to work pretty well?
+        if (titleScore > -Infinity) {
+          itemWithScore.searchScore = titleScore;
+        } else if (bodyScore > -Infinity) {
+          let arbitraryMagicNumber = 5;
+          itemWithScore.searchScore = (bodyScore - 100) * arbitraryMagicNumber;
+        }
+        return itemWithScore;
+      })
+      .sort((a, b) => a.searchScore <= b.searchScore ? 1 : -1)
+      .filter((item) => item.searchScore > -Infinity);
   }
 
   let filteredResults = [];
