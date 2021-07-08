@@ -5,7 +5,7 @@ relativeURLs: true
 
 params:
   # slogan
-  slogan: "Hey, good lookin', whatcha cookin'? Still testing."
+  slogan: "Hey, good lookin', whatcha cookin'?"
   # controls where comments/new recipes are put.
   # repo requires GitHub Discussions to be enabled & Giscus applet installed
   cookbookRepo: compsoc-edinburgh/cook-book

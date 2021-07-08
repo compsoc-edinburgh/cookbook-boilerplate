@@ -11,8 +11,8 @@ $primary-lighter: #cc9e79;
 $primary-lightest: #e8c6ab;
 $bg: #fefefc;
 $secondary-darker: #b7c98b;
-$secondary: #ebf7cd;
-$secondary-lighter: #eff7da;
+$secondary: #ddf0af;
+$secondary-lighter: #ebf7cd;
 $tertiary-darker: #f7b096;
 $tertiary: #ffc1ab;
 $tertiary-lighter: #f8cebf;
@@ -260,14 +260,12 @@ hr {
   }
 }
 
-.recipe-properties {
+.recipe-property {
   text-transform: uppercase;
+  text-decoration: unset;
   color: $text-primary;
   font-size: small;
-
-  .recipe-property {
-    margin: 0 $spacer;
-  }
+  margin: 0 $spacer;
 }
 
 .recipe-body img {
@@ -304,7 +302,6 @@ footer {
 
     a {
       color: $text-primary;
-      font-weight: bold;
     }
   }
 }

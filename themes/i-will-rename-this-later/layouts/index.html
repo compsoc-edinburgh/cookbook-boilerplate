@@ -8,29 +8,45 @@
     <div class="container">
       {{ partial "navbar.html" . }}
       <main>
-        <span>{{ .Site.Params.slogan }}</span>
-        <br>
+        <h1 class="display-2 text-center mb-3">CompSoc CookBook</h1>
+        <h2 class="display-6 text-center mb-5">{{ .Site.Params.slogan }}</h2>
         <section>
-          <h2>Most Recently Updated Recipes</h2>
-          {{ range first 3 (where .Site.RegularPages.ByPublishDate.Reverse "Type" "recipes") }}
-          <article>
-            <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-            <time>{{ .Date.Format "2 Jan, 2006" }}</time>
-          </article>
-          {{ end }}
+          <p>
+            CompSoc Cookbook is a curated list of recipes by CompSoc Edinburgh members.
+          </p>
+          <p>
+            We'd love you to contribute some of your own favourite recipes! All of our data is on <a href="https://github.com/{{ .Site.Params.cookbookRepo }}">GitHub</a>, and the format is plain Markdown.
+          </p>
         </section>
-        <br>
-        See all recipes: <a href="recipes">click</a>.
-        <br>
-        <section>
-          <h2>Browse from various selections</h2>
-          <ul>
-          {{ range $taxonomy_term, $taxonomy := .Site.Taxonomies }}
-            {{ with $.Site.GetPage (printf "/%s" $taxonomy_term) }}
-              <li><a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a></li>
+        <hr>
+        <section class="mt-5">
+          <div class="d-block d-lg-flex justify-content-between">
+            <h2 class="mb-3">Most Recently Updated Recipes</h2>
+            <p><a href="recipes" class="btn btn-outline-primary">View all Recipes</a></p>
+          </div>
+          <ol class="recipe-listing row row-cols-2 row-cols-lg-4 g-3">
+            {{/* Display the most recent 4, without images (even if any exist) */}}
+            {{ range $i, $val := first 4 (where .Site.RegularPages.ByPublishDate.Reverse "Type" "recipes") }}
+            <li class="recipe-listing-item col{{ if (gt $i 1) }} d-none d-lg-block{{ end }}">
+              <a href="{{ $val.RelPermalink }}" role="article">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <span class="meta">{{ $val.Date.Format "2 Jan, 2006" }}</span>
+                    <h4 class="display-6 mt-lg-3">{{ $val.Title }}</h2>
+                  </div>
+                </div>
+              </a>
+            </li>
             {{ end }}
+          </ol>
+        </section>
+        <section class="mt-5 mb-5">
+          <h2>Don't know what to cook?</h2>
+          {{ range $taxonomy_term, $taxonomy := .Site.Taxonomies }}
+          {{ with $.Site.GetPage (printf "/%s" $taxonomy_term) }}
+          <a href="{{ .Page.RelPermalink }}" class="btn btn-outline-primary">Browse by <b>{{ .Page.Title }}</b></a>
           {{ end }}
-          </ul>
+          {{ end }}
         </section>
         <br>
       </main>
