@@ -284,3 +284,15 @@ window.addEventListener("popstate", (event) => {
   let recipes = filterRecipes(window.recipesData || [], state);
   updateRecipeDOM(recipes);
 });
+
+// When a user has scrolled and is idle for 300ms, update the scroll position
+// cookie. This is used to return the user to the original scroll position after
+// a browser popstate event. It is necessary for UX because the dynamic loading
+// of recipes causes users to be taken to the top of the page every time.
+//
+// This is unimplemented because cookies sound like a gigantic rabbit hole of
+// beautiful and fabulous problems, one of which is GDPR.
+//
+// window.addEventListener("scroll", delay(() => {
+//   console.log(window.scrollY);
+// }, 300));
