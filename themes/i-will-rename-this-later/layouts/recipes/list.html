@@ -80,7 +80,13 @@
               Searching or filtering is not possible without JavaScript enabled. You can, however, view all recipes as a list <a href="view-all">here</a>.
             </noscript>
             <ol class="recipe-listing row row-cols-2 row-cols-lg-3 g-4" id="recipe-listing">
-              <!-- Here, recipes will be loaded with AJAX. -->
+              <!-- Here, recipes will be loaded with AJAX. The choice to load
+              these asynchronously versus creating them with Hugo templates and
+              conditionally hiding them with filters is so that the search can
+              re-sort and change the order of recipes easily by just changing the
+              .innerHTML. If the recipes were all generated in this file and all
+              filters did was show/hide each one, it would be impossible to change
+              the order in which recipes are shown. -->
             </ol>
           </section>
         </div>
