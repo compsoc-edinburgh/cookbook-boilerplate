@@ -194,9 +194,15 @@ function updateRecipeDOM(recipes) {
   let output = ""
   for (const key in recipes) {
     let recipe = recipes[key];
+    // Due to an extremely long-standing and curious issue, Hugo only adds
+    // the relative dots (e.g. ../../) to a RelPermalink when it's used as
+    // a href attribute. It also absolutely wrecks havoc with subdirectory
+    // base URLs like GitHub pages (past related issues #7714, #2194, #8078)
+    // See most recent issue highlighting exactly this: #8734.
+    let properlyRelPermalink = "." + recipe.relPermalink;
     output +=
       "<li class=\"recipe-listing-item col\">" +
-        "<a href=\"" + recipe.permalink + "\" role=\"article\">" +
+        "<a href=\"." + properlyRelPermalink + "\" role=\"article\">" +
           "<div class=\"card h-100\">" +
             // "<img src=\"https://source.unsplash.com/random?" + escape(recipe.title) + "\" class=\"card-image-top mx-1 mt-1\" alt=\"Placeholder courtesy of Unsplash. License: https://unsplash.com/license\" />" +
             "<div class=\"card-body\">" +

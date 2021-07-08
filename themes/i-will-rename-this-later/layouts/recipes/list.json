@@ -4,8 +4,6 @@
       "title" .Title
       "params" .Params
       "body" .Plain
-      "permalink" .Permalink
-      "relpermalink" .RelPermalink
-      "baseprependedlink" (printf "%s%s" .Site.BaseURL .RelPermalink)) -}}
+      "relPermalink" .RelPermalink) -}}
 {{- end -}}
 {{- $.Scratch.Get "index" | jsonify -}}
