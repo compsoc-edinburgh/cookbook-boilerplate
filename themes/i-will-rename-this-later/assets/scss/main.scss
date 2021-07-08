@@ -250,11 +250,16 @@ footer {
     font-size: small;
   }
 
-  &:hover {
-    color: $text-dark;
-  }
-
   a {
     color: $text-primary-hint;
+  }
+
+  &:hover {
+    color: $text-dark;
+
+    a {
+      color: $text-primary;
+      font-weight: bold;
+    }
   }
 }
