@@ -27,23 +27,8 @@
             </div>
           </a>
         </div>
-        <ol class="recipe-listing row row-cols-2 row-cols-lg-4 g-4" id="recipe-listing">
-          {{ range (where (.Site.RegularPages.ByTitle.Reverse).ByPublishDate.Reverse "Layout" "recipe") }}
-            <li class="recipe-listing-item col">
-              <a href="{{ .RelPermalink }}" role="article">
-                <div class="card h-100">
-                  {{ if (isset .Params "previewimage") }}
-                  <img loading="lazy" src="{{ .Params.previewimage }}" class="card-image-top mx-1 mt-1" alt="Delicious-looking image of {{ .Title }}" />
-                  {{ end }}
-                  <div class="card-body">
-                    <span class="meta">{{ .Params.meals }} / {{ .Params.difficulties }}</span>
-                    <h4 class="display-5 mt-3">{{ .Title }}</h2>
-                  </div>
-                </div>
-              </a>
-            </li>
-          {{ end }}
-        </ol>
+        {{- $pages := (where (.Site.RegularPages.ByTitle.Reverse).ByPublishDate.Reverse "Layout" "recipe") -}}
+        {{ partial "listing.html" (dict "pages" $pages "page" .)}}
       </main>
       {{ partial "footer.html" . }}
     </div>
