@@ -27,14 +27,17 @@ jobs:
       - uses: actions/checkout@v2
         with:
           repository: compsoc-edinburgh/cookbook-boilerplate
-
-      - uses: actions/checkout@v2
-        with:
-          path: content_raw
+          submodules: 'recursive'
+          fetch-depth: 0
 
       - uses: actions/setup-python@v2
         with:
           python-version: 3.9.6
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml
 
       - name: Parse recipes
         run: |
