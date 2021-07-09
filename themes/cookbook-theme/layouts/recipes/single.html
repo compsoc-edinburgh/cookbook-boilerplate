@@ -13,8 +13,10 @@
     <meta property="og:article:section" content="Recipes" />
     {{- $tags := .Page.Params.tags -}}
     {{/* Tags are a supposed to be arrays but just incase someone puts a string:*/}}
-    {{- if not (reflect.IsSlice .Page.Params.tags) -}}
-      {{- $tags = slice .Page.Params.tags -}}
+    {{- with $tags -}}
+    {{- if not (reflect.IsSlice $tags) -}}
+      {{- $tags = slice $tags -}}
+    {{- end -}}}
     {{- end -}}
     {{ range $val := $tags }}
     <meta property="og:article:tag" content="{{ $val }}" />
@@ -48,7 +50,8 @@
               {{ end }}
               {{ range $key, $val := .Page.Params }}
               {{/* Display all custom params, excluding Hugo defaults and ones already shown */}}
-              {{ if not (in (slice "tags" "allergens" "meals" "difficulties" "iscjklanguage" "draft" "layout" "title") $key) }}
+              {{ $ignored := (slice "tags" "allergens" "meals" "difficulties" "iscjklanguage" "draft" "layout" "title" "date" "publishdate" "lastmod")}}
+              {{ if not (in $ignored $key) }}
               <div class="recipe-property text-center mx-3">
                 {{ $key | title }}<br>
                 <b>{{ $val }}</b>
