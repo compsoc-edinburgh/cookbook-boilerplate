@@ -95,6 +95,6 @@
     </div>
     {{ partial "postamble.html" }}
     {{ $customScript := resources.Get "/js/search.js" | resources.Minify | resources.Fingerprint }}
-    <script async src="{{ $customScript.Permalink }}"></script>
+    <script async src="{{ $customScript.Permalink }}" integrity="{{ $customScript.Data.Integrity }}"></script>
   </body>
 </html>

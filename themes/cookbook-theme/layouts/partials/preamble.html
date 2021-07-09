@@ -12,4 +12,4 @@
 
 <!-- Compiled CSS, contains Bootstrap and custom CSS -->
 {{ $style := resources.Get "/scss/main.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint}}
-<link rel="stylesheet" href="{{ $style.Permalink }}">
+<link rel="stylesheet" href="{{ $style.Permalink }}"  integrity="{{ $style.Data.Integrity }}">
