@@ -2,7 +2,9 @@
 
 In order to reduce the effort of maintaining/contributing/editing the [cookbook repository](https://github.com/compsoc-edinburgh/cook-book), all the website related things are put in this repository.
 
-This website is built with Hugo.
+The cook-book is placed a Git submodule. Its tag (SHA1) is pinned to an older version, but is updatable in the workflow with `git submodule update --remote`, as shown in the example workflow below.
+
+This website itself is built with Hugo. Anyone is welcome to contribute, and more info on contribution can be found in the `themes` directory.
 
 ## Flow
 
