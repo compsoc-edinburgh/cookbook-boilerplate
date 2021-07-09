@@ -3,6 +3,10 @@
   <head>
     {{ partial "preamble.html" }}
     <title>{{ .Site.Title }}</title>
+    <meta property="og:title" content="{{ .Title }}" />
+    <meta property="og:description" content="{{ .Site.Params.slogan }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://comp-soc.com/cookbook" />
   </head>
   <body>
     <div class="container">
