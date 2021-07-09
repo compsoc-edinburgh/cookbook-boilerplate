@@ -1,6 +1,4 @@
 <ol class="recipe-listing row row-cols-2 row-cols-lg-4 g-4">
-  {{ $paginator := .page.Paginate .pages .amount }}
-
   {{ range .pages }}
     <li class="recipe-listing-item col">
       <a href="{{ .RelPermalink }}">
@@ -17,6 +15,3 @@
     </li>
   {{ end }}
 </ol>
-<!-- <div class="d-flex justify-content-center mt-5">
-  {{/* template "_internal/pagination.html" . */}}
-</div> -->
