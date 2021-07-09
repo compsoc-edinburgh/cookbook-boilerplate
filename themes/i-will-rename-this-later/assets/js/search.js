@@ -56,7 +56,7 @@ function replaceQueryParam(param, newVal, search) {
  *
  * @returns Filter object (defined at top of function)
  */
-function getDOMFilters() {
+function getFiltersFromDOM() {
   let filters = {
     // search query
     q: "",
@@ -93,11 +93,11 @@ function getDOMFilters() {
 /**
  * Sets the DOM values of various inputs/checkboxes to what is set in the filter
  * object. This function must satisfy the following law:
- * - setDOMFilters(getDOMFilters()) = identity
+ * - setFiltersToDOM(getFiltersFromDOM()) = identity
  *
- * @param {object} filters Filter object as defined in getDOMFilters
+ * @param {object} filters Filter object as defined in getFiltersFromDOM
  */
-function setDOMFilters(filters) {
+function setFiltersToDOM(filters) {
   document.getElementById("search-query").value = filters.q;
 
   // Uncheck all checkboxes first to bring it to a clean state.
@@ -108,16 +108,84 @@ function setDOMFilters(filters) {
 
   // Set the allergens
   for (let i = 0; i < filters.excludeAllergens.length; i++) {
-    document.getElementById("filterallergens" + filters.excludeAllergens[i]).checked = true;
+    let keySelector = "[data-filter-key=allergens]";
+    let valueSelector = "[data-filter-value=\"" + filters.excludeAllergens[i] +"\"]"
+    let a = document.querySelectorAll(keySelector + valueSelector);
+    for (let j = 0; j < a.length; j++) {
+      a[j].checked = true;
+    }
   }
 
   // All taxonomies.
   for (let key in filters.includeTaxonomies) {
     for (let i = 0; i < filters.includeTaxonomies[key].length; i++) {
-      document.getElementById("filter" + key + filters.includeTaxonomies[key][i]).checked = true;
+      let keySelector = "[data-filter-key=" + key +"]";
+      let valueSelector = "[data-filter-value=\"" + filters.includeTaxonomies[key][i] +"\"]";
+      let a = document.querySelectorAll(keySelector + valueSelector);
+      for (let j = 0; j < a.length; j++) {
+        a[j].checked = true;
+      }
     }
   }
 
+}
+
+/**
+ * Parse the URL and return a filter object. Allows multiple values to be defined
+ * by separating the values with a comma or defining multiple of the same key.
+ *
+ *  - ?allergens=milk&allergens=eggs     => excludeAllergens: ["milk", "eggs"]
+ *  - ?allergens=milk,eggs               => excludeAllergens: ["milk", "eggs"]
+ *  - ?allergens[]=milk&allergens[]=eggs => **unsupported**
+ *
+ * @param {string} url The full document.location or any equivalent URL
+ * @returns Filter object as defined in getFiltersFromDOM
+ */
+ function decodeFiltersFromURL(url) {
+  let filters = {
+    // search query
+    q: "",
+    // list of allergens to exclude (all lowercase) in AND style
+    excludeAllergens: [],
+    // object of (taxonomy => [terms]) to include in OR style
+    includeTaxonomies: {}
+  };
+
+  let filterEntries = (new URL(url)).searchParams;
+  for (let [key, value] of filterEntries.entries()) {
+    if (key == "q") {
+      filters.q = value;
+    } else if (key == "allergens") {
+      filters.excludeAllergens.push(...value.split(","));
+    } else {
+      filters.includeTaxonomies[key] = filters.includeTaxonomies[key] || [];
+      filters.includeTaxonomies[key].push(...value.split(","));
+    }
+  }
+
+  return filters;
+}
+
+/**
+ * Creates a URL query parameter fragment that encodes the filter object. This
+ * function must satisfy the following law:
+ * - decodeFiltersFromURL(encodeFiltersToURL(filters)) = filters
+ *
+ * To satisfy the above law, the query parameters are not appended to any
+ * existing URL, but created newly.
+ *
+ * @param {object} filters Filter object as defined in getFiltersFromDOM
+ */
+function encodeFiltersToURL(filters) {
+
+  // update the URL and provide a back-button functionality to search queries
+  let params  = "";
+  params = replaceQueryParam("q", filters.q, params);
+  params = replaceQueryParam("allergens", filters.excludeAllergens.join(","), params);
+  for (let key in filters.includeTaxonomies) {
+    params = replaceQueryParam(key, filters.includeTaxonomies[key].join(","), params);
+  }
+  return params;
 }
 
 /**
@@ -198,7 +266,7 @@ function scoreMultiWordSearch(query, target) {
  * recipes.
  *
  * @param {array} recipes Array of recipes
- * @param {object} filters Filter object, as returned by getDOMFilters
+ * @param {object} filters Filter object, as returned by getFiltersFromDOM
  */
 function filterRecipes(recipes, filters) {
   let results = recipes;
@@ -292,14 +360,15 @@ function updateRecipeDOM(recipes) {
 // during a search session.
 function onLoad() {
   // Set the value of the search box from the URL.
-  let params = (new URL(document.location)).searchParams;
-  document.getElementById("search-query").value = params.get("q");
+  // let params = (new URL(document.location)).searchParams;
+  // document.getElementById("search-query").value = params.get("q");
+  let filters = decodeFiltersFromURL(document.location);
+  setFiltersToDOM(filters);
 
   // The fetch API is unsupported on IE but we use Bootstrap 5 which doesn't
   // support IE anyway. Plus what CS student uses IE?
   fetch("index.json").then(data => data.json()).then(data => {
     window.recipesData = data;
-    let filters = getDOMFilters();
     let recipes = filterRecipes(window.recipesData || [], filters);
     updateRecipeDOM(recipes);
     document.getElementById("page-title").innerHTML = "Recipes";
@@ -315,14 +384,11 @@ if (document.readyState !== "loading") onLoad();
 // update the recipe DOM.
 document.getElementById("search-query").addEventListener("input", delay(() => {
   // The list of recipes is already stored on the page
-  let filters = getDOMFilters();
-  let recipes = filterRecipes(window.recipesData || [], filters);
-  updateRecipeDOM(recipes);
+  let filters = getFiltersFromDOM();
+  updateRecipeDOM(filterRecipes(window.recipesData || [], filters));
 
   // update the URL and provide a back-button functionality to search queries
-  let current = window.location.search;
-  let updated = replaceQueryParam("q", filters.q, current);
-  history.pushState(filters, document.title, updated);
+  history.pushState(filters, document.title, encodeFiltersToURL(filters));
 }, 400));
 
 // When a user has checked or unchecked one of the filtering checkboxes, perform
@@ -331,12 +397,11 @@ const checkboxes = document.getElementsByClassName("filter-checkbox");
 
 for (let i = 0; i < checkboxes.length; i++) {
   checkboxes[i].addEventListener("change", () => {
-    let filters = getDOMFilters();
-    let recipes = filterRecipes(window.recipesData || [], filters);
-    updateRecipeDOM(recipes);
+    let filters = getFiltersFromDOM();
+    updateRecipeDOM(filterRecipes(window.recipesData || [], filters));
 
     // update the state and provide a back-button functionality to filters
-    history.pushState(filters, document.title);
+    history.pushState(filters, document.title, encodeFiltersToURL(filters));
   });
 }
 
@@ -350,7 +415,7 @@ window.addEventListener("popstate", (event) => {
     state = { q: "", excludeAllergens: [], includeTaxonomies: {}};
   }
 
-  setDOMFilters(state);
+  setFiltersToDOM(state);
   let recipes = filterRecipes(window.recipesData || [], state);
   updateRecipeDOM(recipes);
 });
