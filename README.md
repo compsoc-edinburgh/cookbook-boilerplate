@@ -2,9 +2,17 @@
 
 In order to reduce the effort of maintaining/contributing/editing the [cookbook repository](https://github.com/compsoc-edinburgh/cook-book), all the website related things are put in this repository.
 
-The cook-book is placed a Git submodule. Its tag (SHA1) is pinned to an older version, but is updatable in the workflow with `git submodule update --remote`, as shown in the example workflow below.
+The cook-book is placed in a Git submodule. Its tag (SHA1) is pinned to an older version, but this is of no concern because it is updatable in the workflow with `git submodule update --remote`, as shown in the example workflow below.
 
 This website itself is built with Hugo. Anyone is welcome to contribute, and more info on contribution can be found in the `themes` directory.
+
+## Local setup
+
+The process of testing and developing locally is very similar to what the GitHub action workflow below does.
+
+Specifically, what you need to for set up is recursively clone (`git clone --recurse-submodules`) the repo & update the recipe repo to latest (`git submodule update --remote`).
+
+Then, developing the converter script is simply running the python script. Developing the theme is with `hugo server`.
 
 ## Flow
 
