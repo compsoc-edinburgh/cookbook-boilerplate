@@ -25,6 +25,8 @@ layouts/
 │   └── comments.html <- Giscus comment snippet
 ├── recipes/
 │   ├── list.html     <- /recipes
+│   ├── list.json     <- /recipes/index.json provides a JSON api for search
+│   ├── no-js-list.html <- /recipes/view-all
 │   └── single.html   <- /recipes/<name>
 ├── meals/ | allergens/ | difficulties/
 │   ├── taxonomy.html <- /<grouping>

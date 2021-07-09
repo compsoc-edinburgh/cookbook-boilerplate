@@ -1,6 +1,6 @@
 title: "CompSoc Cookbook"
 languageCode: "en-us"
-theme: "i-will-rename-this-later"
+theme: "cookbook-theme"
 relativeURLs: true
 
 params:
