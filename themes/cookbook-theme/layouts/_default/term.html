@@ -2,8 +2,12 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Lang }}">
   <head>
-    <title>Browsing all {{ .Title }} dishes | {{ .Site.Title }}</title>
     {{ partial "preamble.html" . }}
+    <title>Browsing all {{ .Title }} dishes | {{ .Site.Title }}</title>
+    <meta property="og:title" content="List of all dishes with the {{ .Data.Singular }} {{ .Title }}" />
+    <meta property="og:description" content="There are {{ len .Pages }} recipes with the {{ .Data.Singular }} {{ .Title }}!" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cookbook.betterinformatics.com" />
   </head>
   <body>
     <div class="container">

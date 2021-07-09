@@ -2,7 +2,11 @@
 <html lang="en">
   <head>
     {{ partial "preamble.html" }}
-    <title>{{ .Site.Title }}</title>
+    <title>All Recipes | {{ .Site.Title }}</title>
+    <meta property="og:title" content="All Recipes (no javascript)" />
+    <meta property="og:description" content="Browse all the recipes on Cookbook, no JavaScript required! Filtering and searching capabilities are disabled here." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cookbook.betterinformatics.com" />
   </head>
   <body>
     <div class="container">

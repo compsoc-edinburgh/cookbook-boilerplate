@@ -2,8 +2,12 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Lang }}">
   <head>
-    <title>Browsing all {{ .Data.Plural }}</title>
     {{ partial "preamble.html" . }}
+    <title>Browsing all {{ .Data.Plural }} | {{ .Site.Title }}</title>
+    <meta property="og:title" content="List of all {{ .Data.Plural }}" />
+    <meta property="og:description" content="There are {{ len .Data.Terms }} different {{ .Data.Plural }} to browse from." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cookbook.betterinformatics.com" />
   </head>
   <body>
     <div class="container">

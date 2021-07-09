@@ -3,7 +3,11 @@
 <html lang="{{ .Site.Language.Lang }}">
   <head>
     {{ partial "preamble.html" }}
-    <title>Browsing all {{ .Data.Plural }}</title>
+    <title>Browsing all {{ .Data.Plural }} | {{ .Site.Title }}</title>
+    <meta property="og:title" content="List of all {{ .Data.Plural }}" />
+    <meta property="og:description" content="Are you a master chef? Or a rookie starting your first dish? Select your desired recipe difficulty here and narrow your choice down." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cookbook.betterinformatics.com" />
   </head>
   <body>
     <div class="container">

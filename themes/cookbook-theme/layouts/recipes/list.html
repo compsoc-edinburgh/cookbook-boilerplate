@@ -2,7 +2,11 @@
 <html lang="en">
   <head>
     {{ partial "preamble.html" }}
-    <title>{{ .Site.Title }}</title>
+    <title>{{ .Title }} | {{ .Site.Title }}</title>
+    <meta property="og:title" content="{{ .Title }}" />
+    <meta property="og:description" content="Recipe search result" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cookbook.betterinformatics.com" />
   </head>
   <body>
     <div class="container">

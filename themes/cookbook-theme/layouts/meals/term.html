@@ -3,6 +3,10 @@
   <head>
     {{ partial "preamble.html" }}
     <title>Browsing all {{ .Title }} dishes | {{ .Site.Title }}</title>
+    <meta property="og:title" content="List of all {{ .Title }}" />
+    <meta property="og:description" content="There are {{ len .Pages }} recipes that are classified as {{ .Title }}!" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cookbook.betterinformatics.com" />
   </head>
   <body>
     <div class="container">
