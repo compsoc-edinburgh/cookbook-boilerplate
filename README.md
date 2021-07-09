@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          repository: compsoc-edinburgh/cookbook-template
+          repository: compsoc-edinburgh/cookbook-boilerplate
 
       - uses: actions/checkout@v2
         with:
