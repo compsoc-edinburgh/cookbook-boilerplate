@@ -10,6 +10,29 @@ params:
   # this since they also require a hash ID: go into comments.html to change the
   # repo.
   cookbookRepo: compsoc-edinburgh/cook-book
+  # URLencoded template github new file
+  templateRecipe: |
+    ---
+    keywords: [babylonian, fresh, vegetarian, thisisoptional]
+    allergens: [milk, gluten, celery, crustaceans, eggs, fish, lupin, milk, molluscs, mustard, nuts, peanuts, sesame_seeds, soya, sulphites]
+    serves: 30 cookies
+    prep time: 15 mins
+    anything you want: father
+    ---
+
+    # Grandma's Milk Chocolate Cookies
+
+    They always turn out delicious!
+
+    ## Ingredients
+
+    * 30g of molten hearts
+    * 70g of unsalted butter
+    * 100ml milk
+
+    ## Blahblah
+
+    whatever markdown you want
 
 # allergen is not a taxonomy because its functionality is different -- exclusion.
 # It is implemented as simply a custom Param (identical front matter), parsed
