@@ -269,9 +269,9 @@ function scoreMultiWordSearch(query, target) {
  * @param {object} filters Filter object, as returned by getFiltersFromDOM
  */
 function filterRecipes(recipes, filters) {
-  let results = recipes;
+  let searchResults = recipes;
   if (filters.q) {
-    results = recipes
+    searchResults = recipes
       .map((item) => {
         let titleScore = scoreMultiWordSearch(filters.q.toLowerCase(), item.title.toLowerCase());
         let bodyScore = scoreMultiWordSearch(filters.q.toLowerCase(), item.body.toLowerCase());
@@ -297,8 +297,8 @@ function filterRecipes(recipes, filters) {
   }
 
   let filteredResults = [];
-  for (let i = 0; i < results.length; i++) {
-    let result = results[i];
+  for (let i = 0; i < searchResults.length; i++) {
+    let result = searchResults[i];
     // remove this recipe if there is at least one excluded allergen that exists
     // in the recipe.
     if(filters.excludeAllergens.some(existsInRecipe(result, "allergens"))) {
