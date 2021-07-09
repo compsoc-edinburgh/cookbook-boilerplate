@@ -28,7 +28,7 @@
                     <!-- accordion-body has to be strictly a child of the accordion-collapse class to prevent jumpy transitions:
                     https://stackoverflow.com/questions/38857162/bootstrap-collapse-has-a-jumpy-transition -->
                     <div class="accordion-body">
-                      {{ range $allergen := slice "celery" "gluten" "crustaceans" "eggs" "fish" "lupin" "milk" "molluscs" "mustard" "nuts" "peanuts" "sesame seeds" "soya" "sulphites"}}
+                      {{ range $allergen := slice "celery" "gluten" "crustaceans" "eggs" "fish" "lupin" "milk" "molluscs" "mustard" "nuts" "peanuts" "sesame_seeds" "soya" "sulphites"}}
                       <div class="form-check">
                         <!-- Double dash used for ID to distinguish from dashes within allergen/taxonomy/term names -->
                         <input class="form-check-input filter-checkbox" type="checkbox" value="" id="filterallergens{{ $allergen }}" data-filter-key="allergens" data-filter-value="{{ $allergen }}">
@@ -67,7 +67,7 @@
           </section>
           <section class="col-12 col-lg-9">
             <div class="add-recipe row row-cols-1 mb-4 d-none d-lg-block">
-              <a href="https://github.com/{{ .Site.Params.cookbookRepo }}/new/main/?filename=main_courses/0-easy/foo.md&value=---%0Akeywords%3A%20%5Bbabylonian%2C%20fresh%2C%20vegetarian%5D%0Aallergens%3A%0A-%20milk%0Aserves%3A%2030%20cookies%0A---%0A%0A%23%20Grandma%27s%20Milk%20Chocolate%20Cookies%0A%0AThey%20always%20turn%20out%20delicious%21%0A%0A%23%23%20Ingredients%0A%0A%2A%2030g%20of%20molten%20hearts%0A%2A%2070g%20of%20unsalted%20butter%0A%2A%20100ml%20milk%0A%0A%23%23%20Blahblah&message=add%20my%20&delicious%20recipe">
+              <a href="https://github.com/{{ .Site.Params.cookbookRepo }}/new/main/?filename=main_courses/0-easy/foo.md&value=---%0Akeywords%3A%20%5Bbabylonian%2C%20fresh%2C%20vegetarian%2C%20thisisoptional%5D%0Aallergens%3A%20%5Bthisisalsooptional%2C%20milk%2C%20gluten%2C%20celery%2C%20crustaceans%2C%20eggs%2C%20fish%2C%20lupin%2C%20milk%2C%20molluscs%2C%20mustard%2C%20nuts%2C%20peanuts%2C%20sesame_seeds%2C%20soya%2C%20sulphites%5D%0Aserves%3A%2030%20cookies%0A---%0A%0A%23%20Grandma%27s%20Milk%20Chocolate%20Cookies%0A%0AThey%20always%20turn%20out%20delicious%21%0A%0A%23%23%20Ingredients%0A%0A%2A%2030g%20of%20molten%20hearts%0A%2A%2070g%20of%20unsalted%20butter%0A%2A%20100ml%20milk%0A%0A%23%23%20Blahblah%0A%0Awhatever%20markdown%20you%20want&message=add%20my%20&delicious%20recipe">
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">Add your own recipe!</h5>
