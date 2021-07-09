@@ -13,7 +13,7 @@
     <meta property="og:article:section" content="Recipes" />
     {{- $tags := .Page.Params.tags -}}
     {{/* Tags are a supposed to be arrays but just incase someone puts a string:*/}}
-    {{- if eq (printf "%T" .Page.Params.tags) "string" -}}
+    {{- if not (reflect.IsSlice .Page.Params.tags) -}}
       {{- $tags = slice .Page.Params.tags -}}
     {{- end -}}
     {{ range $val := $tags }}
