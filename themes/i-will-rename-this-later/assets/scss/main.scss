@@ -10,12 +10,9 @@ $primary: #af7c54;
 $primary-lighter: #cc9e79;
 $primary-lightest: #e8c6ab;
 $bg: #fefefc;
-$secondary-darker: #b7c98b;
-$secondary: #ddf0af;
-$secondary-lighter: #ebf7cd;
-$tertiary-darker: #f7b096;
-$tertiary: #ffc1ab;
-$tertiary-lighter: #f8cebf;
+$secondary-darker: #f7b096;
+$secondary: #ffc1ab;
+$secondary-lighter: #f8cebf;
 
 $text-dark: rgba(0, 0, 0, 0.87);
 $text-dark-hint: rgba(0, 0, 0, 0.60);
@@ -220,8 +217,8 @@ hr {
     z-index: $zindex-popover;
 
     &::before {
-      background-color: $tertiary;
-      box-shadow: 0 .5rem 1rem rgba($tertiary, .7);
+      background-color: $secondary;
+      box-shadow: 0 .5rem 1rem rgba($secondary, .7);
     }
 
     .meta {
