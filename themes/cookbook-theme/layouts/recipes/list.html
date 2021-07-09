@@ -14,44 +14,56 @@
           <section class="col-12 col-lg-3">
             <div class="sticky-lg-top filters">
               <!-- Search box -->
-              <input class="form-control" name="q" id="search-query" type="text" placeholder="Search recipes" aria-label="Search Query">
+              <input
+                class="form-control"
+                name="q"
+                id="search-query"
+                type="text"
+                placeholder="Search recipes"
+                aria-label="Search Query">
 
               <!-- Some Filters. Yes, the HTML is a gigantic mess but alas this is how Bootstrap forms work :( -->
               <div class="accordion accordion-flush mt-5" id="searchFilters">
                 <div class="accordion-item">
-                  <h2 class="accordion-header" id="filterAllergensHeading">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filterAllergensBody" aria-expanded="false" aria-controls="filterAllergensBody">
-                      Excluded Allergens
+                  {{/* Allergens aren't a taxonomy, so merge them. But to merge
+                       them, they have to be in a very specific format, which the
+                       loop below creates. */}}
+                  {{- $s := newScratch -}}
+                  {{- $s.Add "allergens" dict -}}
+                  {{- range .Site.Params.allergens -}}
+                  {{- $s.SetInMap "allergens" . slice -}}
+                  {{- end -}}
+
+                  {{- $allFilterable := merge $.Site.Taxonomies (dict "allergens" ($s.Get "allergens")) -}}
+                  {{- range $key, $terms := $allFilterable -}}
+                  <h2 class="accordion-header" id="filter{{ $key | title }}Heading">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#filter{{ $key | title }}Body"
+                      aria-expanded="false"
+                      aria-controls="filter{{ $key | title }}Body">
+                      {{ if eq $key "allergens" }}Excluded {{ end }}{{ $key | title }}
                     </button>
                   </h2>
-                  <div id="filterAllergensBody" class="accordion-collapse collapse" aria-labelledby="filterAllergensHeading" data-bs-parent="#searchFilters">
+                  <div
+                    id="filter{{ $key | title }}Body"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="filter{{ $key | title }}Heading"
+                    data-bs-parent="#searchFilters">
                     <!-- accordion-body has to be strictly a child of the accordion-collapse class to prevent jumpy transitions:
                     https://stackoverflow.com/questions/38857162/bootstrap-collapse-has-a-jumpy-transition -->
                     <div class="accordion-body">
-                      {{ range $allergen := slice "celery" "gluten" "crustaceans" "eggs" "fish" "lupin" "milk" "molluscs" "mustard" "nuts" "peanuts" "sesame_seeds" "soya" "sulphites"}}
-                      <div class="form-check">
-                        <!-- Double dash used for ID to distinguish from dashes within allergen/taxonomy/term names -->
-                        <input class="form-check-input filter-checkbox" type="checkbox" value="" id="filterallergens{{ $allergen }}" data-filter-key="allergens" data-filter-value="{{ $allergen }}">
-                        <label class="form-check-label" for="filterallergens{{ $allergen }}">
-                          {{ $allergen | title }}
-                        </label>
-                      </div>
-                      {{ end }}
-                    </div>
-                  </div>
-
-                  {{ range $key, $terms := $.Site.Taxonomies }}
-                  {{ $capitalised := $key | title }}
-                  <h2 class="accordion-header" id="filter{{ $capitalised }}Heading">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filter{{ $capitalised }}Body" aria-expanded="false" aria-controls="filter{{ $capitalised }}Body">
-                      {{ $key | title }}
-                    </button>
-                  </h2>
-                  <div id="filter{{ $capitalised }}Body" class="accordion-collapse collapse" aria-labelledby="filter{{ $capitalised }}Heading" data-bs-parent="#searchFilters">
-                    <div class="accordion-body">
                       {{ range $term, $pages := $terms }}
                       <div class="form-check">
-                        <input class="form-check-input filter-checkbox" type="checkbox" value="" id="filter{{ $key }}{{ $term }}"  data-filter-key="{{ $key }}" data-filter-value="{{ $term }}">
+                        <input
+                          class="form-check-input filter-checkbox"
+                          type="checkbox"
+                          value=""
+                          id="filter{{ $key }}{{ $term }}"
+                          data-filter-key="{{ $key }}"
+                          data-filter-value="{{ $term }}">
                         <label class="form-check-label" for="filter{{ $key }}{{ $term }}">
                           {{ $term | title }}
                         </label>

@@ -10,6 +10,22 @@ params:
   # this since they also require a hash ID: go into comments.html to change the
   # repo.
   cookbookRepo: compsoc-edinburgh/cook-book
+  # 14 allergens, that recipes can use
+  allergens:
+    - celery
+    - gluten
+    - crustaceans
+    - eggs
+    - fish
+    - lupin
+    - milk
+    - molluscs
+    - mustard
+    - nuts
+    - peanuts
+    - sesame_seeds
+    - soya
+    - sulphites
   # URLencoded template github new file
   templateRecipe: |
     ---
