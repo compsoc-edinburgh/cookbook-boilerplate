@@ -9,7 +9,13 @@
       {{ partial "navbar.html" . }}
       <main>
         <h1 class="display-2 text-center">{{ .Title | title }}</h1>
-        <h4 class="text-center mb-5">List of recipes ranked as {{ .Title }}.</h4>
+        <h4 class="text-center">List of recipes ranked as {{ .Title }}.</h4>
+        <!-- The link below has a slash at the beginning (you may think it won't
+          work if this site is hosted on a subdomain) but this is fine, since Hugo
+          translates this during postprocessing to relative links. -->
+        <div class="text-center mb-5">
+          <a class="btn btn-outline-primary" href="/recipes?{{ .Data.Plural }}={{ .Title }}">Search with this filter</a>
+        </div>
         {{ partial "listing.html" (dict "amount" 12 "pages" (.Pages.ByTitle.Reverse).ByPublishDate.Reverse "page" .) }}
       </main>
       {{ partial "footer.html" . }}
