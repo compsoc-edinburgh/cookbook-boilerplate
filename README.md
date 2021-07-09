@@ -8,10 +8,8 @@ This website is built with Hugo.
 
 All of the building happens inside a GitHub action workflow within the cookbook, not here. This is so that changes in recipes trigger the rebuild, not changes in the theme.
 
-Currently, the workflow is not merged into the official cookbook yet, but it is running on a fork by yutotakano: https://yutotakano.github.io/cook-book.
-
 1. New commit is pushed to the cookbook.
-2. This repo is checked out in a GitHub action, and then the cookbook is checked out into `/content_raw`.
+2. This repo is checked out in a GitHub action, and then the cookbook submodule into `/content_raw`.
 3. The directory structure is translated into front matter and copied into `/content/recipes` using `parse_content.py`
 4. `hugo` is called to build the site, and the `/public` directory is uploaded as GitHub Pages.
 
