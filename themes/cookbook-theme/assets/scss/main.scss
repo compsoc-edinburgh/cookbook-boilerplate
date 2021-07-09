@@ -253,7 +253,6 @@ hr {
   .recipe-keyword {
     text-decoration: unset;
     display: inline-block;
-    margin: 0 $spacer * 0.5;
   }
 }
 
@@ -261,8 +260,6 @@ hr {
   text-transform: uppercase;
   text-decoration: unset;
   color: $text-primary;
-  font-size: small;
-  margin: 0 $spacer;
 }
 
 .recipe-body img {

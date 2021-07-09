@@ -28,30 +28,32 @@
           <!-- Header -->
           <div class="d-flex flex-column align-items-center mb-5">
             <div class="recipe-keywords">
-
-              <time class="recipe-keyword" datetime="{{ .Date }}">{{ .Date.Format "2 Jan, 2006" }}</time>
-                •
-                <b><a class="recipe-keyword" href="{{ printf "/difficulties/%s" (.Page.Params.difficulties | urlize) | relURL }}">
-                  {{ .Page.Params.difficulties }}
-                </a></b>
-                •
-                <b><a class="recipe-keyword" href="{{ printf "/meals/%s" (.Page.Params.meals | urlize) | relURL }}">
-                  {{ .Page.Params.meals }}
-                </a></b>
+              <time class="recipe-keyword mx-2" datetime="{{ .Date }}">{{ .Date.Format "2 Jan, 2006" }}</time>
+              •
+              <b><a class="recipe-keyword mx-2" href="{{ printf "/difficulties/%s" (.Page.Params.difficulties | urlize) | relURL }}">
+                {{ .Page.Params.difficulties }}
+              </a></b>
+              •
+              <b><a class="recipe-keyword mx-2" href="{{ printf "/meals/%s" (.Page.Params.meals | urlize) | relURL }}">
+                {{ .Page.Params.meals }}
+              </a></b>
             </div>
             <h1 class="display-2 mb-4 text-center">{{ .Title }}</h1>
             <div class="recipe-properties d-flex">
-              {{ with .Page.Params.serves }}
-              <div class="recipe-property">
-                <b>Serves</b><br>
-                {{ . }}
+              {{ with .Page.Params.allergens }}
+              <div class="recipe-property text-center mx-3">
+                Contains<br>
+                <b>{{ range $key := . }}{{ $key }}{{ end }}</b>
               </div>
               {{ end }}
-              {{ with .Page.Params.allergens }}
-              <div class="recipe-property">
-                <b>Contains</b><br>
-                {{ range $key := . }}{{ $key }}{{ end }}
+              {{ range $key, $val := .Page.Params }}
+              {{/* Display all custom params, excluding Hugo defaults and ones already shown */}}
+              {{ if not (in (slice "tags" "allergens" "meals" "difficulties" "iscjklanguage" "draft" "layout" "title") $key) }}
+              <div class="recipe-property text-center mx-3">
+                {{ $key | title }}<br>
+                <b>{{ $val }}</b>
               </div>
+              {{ end }}
               {{ end }}
             </div>
           </div>
@@ -61,7 +63,7 @@
 
               <div class="recipe-keywords mt-5">
                 {{ range $val := $tags -}}
-                  <a class="recipe-keyword" href="{{ printf "/tags/%s" ($val | urlize) | relURL }}">#{{ $val }}</a>
+                  <a class="recipe-keyword mx-2" href="{{ printf "/tags/%s" ($val | urlize) | relURL }}">#{{ $val }}</a>
                 {{- end }}
               </div>
             </div>
