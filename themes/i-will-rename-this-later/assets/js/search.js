@@ -3,7 +3,7 @@
  * the parent delay function is called again. This is high level trickery that
  * I haven't been able to fully understand yet, insights welcome.
  *
- * Taken from StackOverflow.com/questions/1909441
+ * Courtesy of StackOverflow.com/questions/1909441
  *
  * @param {function} callback Function to be called after the delay
  * @param {number} ms Number of milliseconds to wait for further events before
@@ -23,14 +23,13 @@ function delay(callback, ms) {
 /**
  * Escape a user-provided string into HTML codes to prevent XSS attacks.
  *
+ * Courtesy of StackOverflow.com/questions/5251520
+ *
  * @param {string} s Raw string to escape
  * @returns HTML-escaped string
  */
 function escape(s) {
-  return s.replace(
-      /[^0-9A-Za-z ]/g,
-      c => "&#" + c.charCodeAt(0) + ";"
-  );
+  return s.replace(/[^0-9A-Za-z ]/g, c => "&#" + c.charCodeAt(0) + ";");
 }
 
 /**
@@ -54,6 +53,7 @@ function replaceQueryParam(param, newVal, search) {
 /**
  * Parse all the currently set filters/search queries from the DOM, and returns
  * an organised object to be used in filterRecipes.
+ *
  * @returns Filter object (defined at top of function)
  */
 function getDOMFilters() {
@@ -140,6 +140,14 @@ function existsInRecipe(recipe, paramKey) {
   }
 }
 
+/**
+ * negate is a Higher-Order-Function that takes operates on a function that
+ * takes any number of arguments and returns a boolean, by negating the retur
+ * value.
+ *
+ * @param {function} fn Predicate function that returns a boolean
+ * @returns A function that takes the same arguments but negates the return value
+ */
 function negate(fn) {
   return function(...things) {
     return !fn(...things);
@@ -188,6 +196,7 @@ function scoreMultiWordSearch(query, target) {
 /**
  * Filters the list of recipes by the set filters, and returns the remaining
  * recipes.
+ *
  * @param {array} recipes Array of recipes
  * @param {object} filters Filter object, as returned by getDOMFilters
  */
