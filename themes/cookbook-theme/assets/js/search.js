@@ -338,8 +338,8 @@ function updateRecipeDOM(recipes) {
     let properlyRelPermalink = "." + recipe.relPermalink;
     output +=
       "<li class=\"recipe-listing-item col\">" +
-        "<a href=\"." + properlyRelPermalink + "\" role=\"article\">" +
-          "<div class=\"card h-100\">" +
+        "<a href=\"." + properlyRelPermalink + "\">" +
+          "<div class=\"card h-100\" role=\"article\">" +
             (recipe.params.previewimage ?
               "<img loading=\"lazy\" src=\"" + recipe.params.previewimage + "\" class=\"card-image-top mx-1 mt-1\" alt=\"Delicious-looking image of " + escape(recipe.title) + "\" />"
               : "") +

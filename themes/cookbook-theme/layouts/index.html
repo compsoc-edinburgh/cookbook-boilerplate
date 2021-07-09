@@ -12,9 +12,9 @@
     <div class="container">
       {{ partial "navbar.html" . }}
       <main>
-        <h1 class="display-2 text-center mb-3">CompSoc CookBook</h1>
-        <h2 class="display-6 text-center mb-5">{{ .Site.Params.slogan }}</h2>
         <section class="mb-5 pb-3">
+          <h1 class="display-2 text-center mb-3">CompSoc CookBook</h1>
+          <h2 class="display-6 text-center mb-5">{{ .Site.Params.slogan }}</h2>
           <p>
             CompSoc Cookbook is a curated list of recipes by CompSoc Edinburgh members.
           </p>
@@ -32,8 +32,8 @@
             {{/* Display the most recent 4, without images (even if any exist) */}}
             {{ range $i, $val := first 4 (where .Site.RegularPages.ByPublishDate.Reverse "Type" "recipes") }}
             <li class="recipe-listing-item col{{ if (gt $i 1) }} d-none d-lg-block{{ end }}">
-              <a href="{{ $val.RelPermalink }}" role="article">
-                <div class="card h-100">
+              <a href="{{ $val.RelPermalink }}">
+                <div class="card h-100" role="article">
                   <div class="card-body">
                     <span class="meta">{{ $val.Date.Format "2 Jan, 2006" }}</span>
                     <h4 class="display-6 mt-lg-3">{{ $val.Title }}</h2>
