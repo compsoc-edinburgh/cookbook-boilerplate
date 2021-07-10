@@ -32,13 +32,13 @@
             <div class="recipe-keywords">
               <time class="recipe-keyword mx-2" datetime="{{ .Date }}">{{ .Date.Format "2 Jan, 2006" }}</time>
               •
-              <b><a class="recipe-keyword mx-2" href="{{ printf "/difficulties/%s" (.Page.Params.difficulties | urlize) | relURL }}">
+              <a class="recipe-keyword mx-2" href="{{ printf "/difficulties/%s" (.Page.Params.difficulties | urlize) | relURL }}">
                 {{ .Page.Params.difficulties }}
-              </a></b>
+              </a>
               •
-              <b><a class="recipe-keyword mx-2" href="{{ printf "/meals/%s" (.Page.Params.meals | urlize) | relURL }}">
+              <a class="recipe-keyword mx-2" href="{{ printf "/meals/%s" (.Page.Params.meals | urlize) | relURL }}">
                 {{ .Page.Params.meals }}
-              </a></b>
+              </a>
             </div>
             <h1 class="display-2 mb-4 text-center">{{ .Title }}</h1>
             <div class="recipe-properties d-flex">

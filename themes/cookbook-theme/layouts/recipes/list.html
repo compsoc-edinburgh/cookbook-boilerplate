@@ -40,7 +40,7 @@
 
                   {{- $allFilterable := merge $.Site.Taxonomies (dict "allergens" ($s.Get "allergens")) -}}
                   {{- range $key, $terms := $allFilterable -}}
-                  <h2 class="accordion-header" id="filter{{ $key | title }}Heading">
+                  <div class="accordion-header" id="filter{{ $key | title }}Heading">
                     <button
                       class="accordion-button collapsed"
                       type="button"
@@ -50,7 +50,7 @@
                       aria-controls="filter{{ $key | title }}Body">
                       {{ if eq $key "allergens" }}Excluded {{ end }}{{ $key | title }}
                     </button>
-                  </h2>
+                  </div>
                   <div
                     id="filter{{ $key | title }}Body"
                     class="accordion-collapse collapse"
