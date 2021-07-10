@@ -100,6 +100,12 @@ $font-family-display: "Playfair Display", charter, Georgia, Cambria, "Times New 
 @import "../bootstrap/scss/utilities/api";
 
 /* =======================================================*/
+/* Nav Bootstrap                                          */
+/* =======================================================*/
+
+@import "nav";
+
+/* =======================================================*/
 /* Custom overrides, styles, CSS generation               */
 /* =======================================================*/
 
@@ -110,6 +116,13 @@ body {
 @each $display, $font-size in $display-font-sizes {
   .display-#{$display} {
     font-family: $font-family-display;
+  }
+}
+
+@for $heading-size from 1 through 5 {
+  h#{$heading-size} {
+    font-family: $font-family-display;
+    font-weight: 500;
   }
 }
 
@@ -139,13 +152,6 @@ hr {
   background-color: unset;
   opacity: unset;
 }
-
-/* =======================================================*/
-/* Nav Bootstrap                                         */
-/* =======================================================*/
-
-@import "nav";
-
 
 .add-recipe a {
   display: block;
@@ -266,11 +272,9 @@ hr {
   max-width: 100%;
 }
 
+
 @for $heading-size from 1 through 4 {
   .recipe-body h#{$heading-size} {
-    font-family: $font-family-base;
-    font-weight: bold;
-
     @extend .mt-4, .mb-4;
 
     @media print {
