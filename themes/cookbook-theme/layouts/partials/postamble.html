@@ -1,7 +1,11 @@
 <!-- None are loaded with async because collapse.js depends on the previous ones -->
-<script type="text/javascript" src="{{ (resources.Get "/bootstrap/js/dist/dom/data.js" | resources.Minify).Permalink }}"></script>
-<script type="text/javascript" src="{{ (resources.Get "/bootstrap/js/dist/dom/event-handler.js" | resources.Minify).Permalink }}"></script>
-<script type="text/javascript" src="{{ (resources.Get "/bootstrap/js/dist/dom/manipulator.js" | resources.Minify).Permalink }}"></script>
-<script type="text/javascript" src="{{ (resources.Get "/bootstrap/js/dist/dom/selector-engine.js" | resources.Minify).Permalink }}"></script>
-<script type="text/javascript" src="{{ (resources.Get "/bootstrap/js/dist/base-component.js" | resources.Minify).Permalink }}"></script>
-<script type="text/javascript" src="{{ (resources.Get "/bootstrap/js/dist/collapse.js" | resources.Minify).Permalink }}"></script>
+{{ $scripts := slice "/bootstrap/js/dist/dom/data.js"
+                    "/bootstrap/js/dist/dom/event-handler.js"
+                    "/bootstrap/js/dist/dom/manipulator.js"
+                    "/bootstrap/js/dist/dom/selector-engine.js"
+                    "/bootstrap/js/dist/base-component.js"
+                    "/bootstrap/js/dist/collapse.js"}}
+{{- range $script := $scripts -}}
+{{ $resource := resources.Get $script | resources.Minify }}
+<script type="text/javascript" integrity="{{ $resource.Data.Integrity }}" src="{{ $resource.Permalink }}"></script>
+{{ end }}
