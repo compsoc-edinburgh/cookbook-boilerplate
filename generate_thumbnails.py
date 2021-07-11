@@ -41,43 +41,17 @@ def main():
 
         front_matter = get_front_matter(contents)
 
-        date = datetime.datetime.now(datetime.timezone.utc)
-        if "publishdate" in front_matter and len(front_matter["publishdate"]) > 0:
-            date = datetime.datetime.fromisoformat(front_matter["publishdate"])
-            if image_exists(recipe, date, args.output_dir):
-                continue
-
         if "title" in front_matter:
             image = create_thumbnail(front_matter, serif, sansserif)
-            write_image(image, recipe, date, args.output_dir)
+            write_image(image, recipe, args.output_dir)
 
-def unix_time(dt: datetime.datetime):
-    """
-    Returns the milliseconds since epoch.
-    Courtesy of StackOverflow.com/questions/6999726
-    """
-    epoch = datetime.datetime.fromtimestamp(0, datetime.timezone.utc)
-    return (dt - epoch).total_seconds() * 1000.0
-
-def image_exists(recipe_filename: dict, date: datetime.datetime, out_dir: str) -> bool:
-    """
-    Check if the image with the same creation date already exists. The creation
-    date of a recipe is taken from the Git commit date in parse_content.py, so
-    this is a simple check to see if a recipe has been edited since last time.
-    """
-    basename = os.path.splitext(os.path.basename(recipe_filename))[0]
-    timestamp = str(int(unix_time(date)))
-    return os.path.exists(os.path.join(out_dir, ".".join([basename, timestamp, "png"])))
-
-
-def write_image(im: Image.Image, recipe_filename: dict, date: datetime.datetime, out_dir: str) -> None:
+def write_image(im: Image.Image, recipe_filename: dict, out_dir: str) -> None:
     """
     Write the Pillow image to the output directory as a PNG with the same name
     as the recipe filename.
     """
     basename = os.path.splitext(os.path.basename(recipe_filename))[0]
-    timestamp = str(int(unix_time(date)))
-    im.save(os.path.join(out_dir, ".".join([basename, timestamp, "png"])), format="png")
+    im.save(os.path.join(out_dir, ".".join([basename, "png"])), format="png")
 
 def get_front_matter(contents: list[str]) -> dict:
     """
