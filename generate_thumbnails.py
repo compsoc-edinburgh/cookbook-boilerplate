@@ -9,10 +9,14 @@ import subprocess
 from PIL import Image, ImageFont, ImageDraw
 
 parser = argparse.ArgumentParser(description="Generate TwitterCard images from a directory full of Hugo posts. Will not create thumbnails for posts that haven't been edited since last generation (commit date unchanged)")
-parser.add_argument("-i", "--input-dir", type=str, default="content/recipes",
+parser.add_argument("-i", "--input-dir", type=str, required=True,
                     help="top directory for the parsed and generated cook-book recipes")
-parser.add_argument("-o", "--output-dir", type=str, default="static/img/thumbnails",
+parser.add_argument("-o", "--output-dir", type=str, required=True,
                     help="top directory for the output (should be empty or not exist)")
+parser.add_argument("-serif", "--serif-font", type=str, required=True,
+                    help="filepath to the serif font")
+parser.add_argument("-sansserif", "--sans-serif-font", type=str, required=True,
+                    help="filepath to the sans serif font")
 
 def main():
     args = parser.parse_args()
@@ -24,8 +28,8 @@ def main():
     # get all files with .md extension within the input dir
     recipes = [y for x in os.walk(args.input_dir) for y in glob(os.path.join(x[0], "*.md"))]
 
-    serif = "PlayFairDisplay-Regular.ttf"
-    sansserif = "Lato-Regular.ttf"
+    serif = args.serif_font
+    sansserif = args.sans_serif_font
 
     for recipe in recipes:
         if "view-all.md" in recipe:
