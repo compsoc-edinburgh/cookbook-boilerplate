@@ -8,11 +8,11 @@ import datetime
 import subprocess
 from PIL import Image, ImageFont, ImageDraw
 
-parser = argparse.ArgumentParser(description='Generate TwitterCard images from a directory full of Hugo posts. Will not create thumbnails for posts that haven\'t been edited since last generation (commit date unchanged)')
-parser.add_argument('-i', '--input-dir', type=str, default="content/recipes",
-                    help='top directory for the parsed and generated cook-book recipes')
-parser.add_argument('-o', '--output-dir', type=str, default="static/img/thumbnails",
-                    help='top directory for the output (should be empty or not exist)')
+parser = argparse.ArgumentParser(description="Generate TwitterCard images from a directory full of Hugo posts. Will not create thumbnails for posts that haven't been edited since last generation (commit date unchanged)")
+parser.add_argument("-i", "--input-dir", type=str, default="content/recipes",
+                    help="top directory for the parsed and generated cook-book recipes")
+parser.add_argument("-o", "--output-dir", type=str, default="static/img/thumbnails",
+                    help="top directory for the output (should be empty or not exist)")
 
 def main():
     args = parser.parse_args()
@@ -22,7 +22,7 @@ def main():
         os.makedirs(args.output_dir)
 
     # get all files with .md extension within the input dir
-    recipes = [y for x in os.walk(args.input_dir) for y in glob(os.path.join(x[0], '*.md'))]
+    recipes = [y for x in os.walk(args.input_dir) for y in glob(os.path.join(x[0], "*.md"))]
 
     serif = "PlayFairDisplay-Regular.ttf"
     sansserif = "Lato-Regular.ttf"
@@ -228,7 +228,7 @@ def get_wrapped_text(text: str, font: ImageFont.ImageFont, line_length: int, max
     lines = [""]
     for word in text.split():
         # Hypothesise that the last line also contained this word
-        line = f'{lines[-1]} {word}'.strip()
+        line = f"{lines[-1]} {word}".strip()
         # If the hypothetical line is still short, replace the last line with it
         if font.getlength(line) <= line_length:
             lines[-1] = line

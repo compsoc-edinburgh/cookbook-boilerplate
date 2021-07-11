@@ -5,11 +5,11 @@ import subprocess
 import yaml
 import re
 
-parser = argparse.ArgumentParser(description='Convert the cook-book directory structure to Hugo structure.')
-parser.add_argument('-i', '--input-dir', type=str, required=True,
-                    help='top directory for the cook-book recipes')
-parser.add_argument('-o', '--output-dir', type=str, required=True,
-                    help='top directory for the output (should be empty)')
+parser = argparse.ArgumentParser(description="Convert the cook-book directory structure to Hugo structure.")
+parser.add_argument("-i", "--input-dir", type=str, required=True,
+                    help="top directory for the cook-book recipes")
+parser.add_argument("-o", "--output-dir", type=str, required=True,
+                    help="top directory for the output (should be empty)")
 
 def main():
     args = parser.parse_args()
@@ -19,7 +19,7 @@ def main():
         os.makedirs(args.output_dir)
 
     # get all files with .md extension within the input dir
-    recipes = [y for x in os.walk(args.input_dir) for y in glob(os.path.join(x[0], '*.md'))]
+    recipes = [y for x in os.walk(args.input_dir) for y in glob(os.path.join(x[0], "*.md"))]
 
     for recipe in recipes:
         # skip unrelated files
