@@ -1,7 +1,6 @@
 import argparse
 import os
 from glob import glob
-import html
 import subprocess
 import yaml
 import re
@@ -36,7 +35,7 @@ def main():
 
         # get the latest edit date from the git commit log
         relative_path = os.path.join(os.path.basename(meal), os.path.basename(difficulty), os.path.basename(recipe))
-        git_command = ["git", "log", "-1", "--pretty=format:%ci", "--follow", "--", relative_path]
+        git_command = ["git", "log", "-1", "--pretty=format:%cI", "--follow", "--", relative_path]
         date = subprocess.check_output(git_command, cwd=args.input_dir).decode("utf-8")
         front_matter.setdefault("publishdate", date)
 
