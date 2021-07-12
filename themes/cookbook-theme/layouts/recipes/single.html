@@ -4,6 +4,8 @@
   <head>
     {{ partial "preamble.html" . }}
     <title>{{ .Title }} | {{ .Site.Title }}</title>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@compsoc" />
     <meta property="og:title" content="{{ .Title }}" />
     <meta property="og:description" content="Difficulty: {{ .Page.Params.difficulties }} • Meal: {{ .Page.Params.meals }} • {{ .Summary }}" />
     <meta property="og:url" content="https://github.com/{{ .Site.Params.cookbookRepo }}" />
