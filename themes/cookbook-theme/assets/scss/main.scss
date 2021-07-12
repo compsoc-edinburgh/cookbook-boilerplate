@@ -267,6 +267,11 @@ hr {
 
 .recipe-body img {
   max-width: 100%;
+  /* center the image with margins. ideally this should be done by setting
+  text-align on the parent, but since this is all generated from Hugo, there is
+  no way to access the parent selector. */
+  display: block;
+  margin: 0 auto;
 }
 
 
