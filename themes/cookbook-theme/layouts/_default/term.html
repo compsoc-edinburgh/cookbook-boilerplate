@@ -15,7 +15,7 @@
       <main>
         <h1 class="display-2 text-center mb-3">{{ .Title | title }}</h1>
         <div class="text-center mb-5">
-          <a class="btn btn-outline-primary" href="/recipes?{{ .Data.Plural }}={{ .Title }}">Search with this filter</a>
+          <a class="btn btn-outline-primary" href="{{ printf "%s%s" "recipes?" (querify .Data.Plural .Title ) | relURL }}">Search with this filter</a>
         </div>
         {{ partial "listing.html" (dict "pages" (.Pages.ByTitle.Reverse).ByPublishDate.Reverse "page" .) }}
       </main>

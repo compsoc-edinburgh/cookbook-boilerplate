@@ -13,11 +13,11 @@
       {{ partial "navbar.html" . }}
       <main>
         <h1 class="display-2 text-center">{{ .Title | title }}</h1>
-        <!-- The link below has a slash at the beginning (you may think it won't
-          work if this site is hosted on a subdomain) but this is fine, since Hugo
-          translates this during postprocessing to relative links. -->
+        <!-- printf below concatenates the two strings, and relURL converts a
+        URL *with no preceding slash* to a relative URL that works on any context
+        that the site could be deployed in. -->
         <div class="text-center mb-5">
-          <a class="btn btn-outline-primary" href="/recipes?{{ .Data.Plural }}={{ .Title }}">Search with this filter</a>
+          <a class="btn btn-outline-primary" href="{{ printf "%s%s" "recipes?" (querify .Data.Plural .Title ) | relURL }}">Search with this filter</a>
         </div>
         {{ partial "listing.html" (dict "pages" (.Pages.ByTitle.Reverse).ByPublishDate.Reverse "page" .) }}
       </main>
