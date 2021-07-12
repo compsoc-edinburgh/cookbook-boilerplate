@@ -52,8 +52,11 @@ def main():
         if existing_front_matter:
             front_matter = front_matter | existing_front_matter
 
-        # write everything to file
-        with open(os.path.join(args.output_dir, os.path.basename(recipe)), "w+", encoding="utf-8") as f:
+        # write everything to a Page Bundle (see Hugo docs)
+        basename = os.path.splitext(os.path.basename(recipe))[0]
+        if not os.path.exists(os.path.join(args.output_dir, basename)):
+            os.makedirs(args.output_dir, basename))
+        with open(os.path.join(args.output_dir, basename, "index.md"), "w+", encoding="utf-8") as f:
             f.write("---\n")
             f.writelines(yaml.dump(front_matter))
             f.write("---\n\n")
