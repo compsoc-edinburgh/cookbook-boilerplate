@@ -12,4 +12,4 @@ min_version = "0.66.0"
 
 [author]
   name = "CompSoc Contributors"
-  homepage = https://github.com/compsoc-edinburgh
+  homepage = "https://github.com/compsoc-edinburgh"
