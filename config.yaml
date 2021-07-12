@@ -1,7 +1,6 @@
 title: "CompSoc Cookbook"
 languageCode: "en-us"
 theme: "cookbook-theme"
-relativeURLs: true
 
 params:
   # slogan
