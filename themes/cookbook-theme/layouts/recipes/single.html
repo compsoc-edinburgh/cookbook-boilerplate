@@ -9,17 +9,21 @@
     <meta property="og:title" content="{{ .Title }}" />
     <meta property="og:description" content="Difficulty: {{ .Page.Params.difficulties }} • Meal: {{ .Page.Params.meals }} • {{ .Summary }}" />
     <meta property="og:url" content="https://github.com/{{ .Site.Params.cookbookRepo }}" />
-    <meta property="og:site_name" content="CompSoc Cookbook" />
+    <meta property="og:site_name" content="{{ .Site.Title }}" />
     <meta property="og:type" content="article" />
     <meta property="og:article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z0700" }}" />
     <meta property="og:article:section" content="Recipes" />
     {{- $thumbnail := .Resources.GetMatch "thumbnail.png" -}}
     {{- if $thumbnail }}
     <!-- Hugo does not translate URLs in content attributes to relative links,
-    see #8734. This may mean it won't properly work when deployed to various
-    different contexts, like on subdirectories (e.g. where the root of the
-    cookbook lives not at / but at /cookbook) -->
-    <meta property="og:image" content="{{ $thumbnail.RelPermalink }}" />
+    see #8734. This means just using RelPermalink won't properly work when
+    deployed to various different contexts, like on subdirectories (e.g. where
+    the root of the cookbook lives not at / but at /cookbook).
+
+    To mitigate this, the thumbnails are stored in the same Page Bundle as the
+    recipe, so that links to each other work with just the name. This is very
+    fragile and prone to any changes with alias/custom permalinks. -->
+    <meta property="og:image" content="{{ $thumbnail.Name }}" />
     <meta property="og:image:alt" content="Difficulty: {{ .Page.Params.difficulties }} • Meal: {{ .Page.Params.meals }} • {{ .Summary }}" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="600" />
@@ -55,22 +59,22 @@
             </div>
             <h1 class="display-2 mb-4 text-center">{{ .Title }}</h1>
             <div class="recipe-properties d-flex">
-              {{ with .Page.Params.allergens }}
+              {{ with .Page.Params.allergens -}}
               <div class="recipe-property text-center mx-3">
                 Contains<br>
                 <b>{{ range $key := . }}{{ $key }}{{ end }}</b>
               </div>
-              {{ end }}
-              {{ range $key, $val := .Page.Params }}
+              {{- end -}}
+              {{- range $key, $val := .Page.Params -}}
               {{/* Display all custom params, excluding Hugo defaults and ones already shown */}}
-              {{ $ignored := (slice "tags" "allergens" "meals" "difficulties" "iscjklanguage" "draft" "layout" "title" "date" "publishdate" "lastmod")}}
-              {{ if not (in $ignored $key) }}
+              {{- $ignored := (slice "tags" "allergens" "meals" "difficulties" "iscjklanguage" "draft" "layout" "title" "date" "publishdate" "lastmod" "previewimage") -}}
+              {{- if not (in $ignored $key) -}}
               <div class="recipe-property text-center mx-3">
-                {{ $key | title }}<br>
-                <b>{{ $val }}</b>
+                {{- $key | title -}}<br>
+                <b>{{- $val -}}</b>
               </div>
-              {{ end }}
-              {{ end }}
+              {{- end -}}
+              {{- end }}
             </div>
           </div>
           <section class="recipe-body row justify-content-center">
