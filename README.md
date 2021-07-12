@@ -57,6 +57,10 @@ jobs:
         run: |
           python parse_content.py -i content_raw -o content/recipes
 
+      - name: Generate thumbnails
+        run: |
+          python generate_thumbnails.py -i content/recipes -o content/recipes -serif fonts/PlayfairDisplay-Regular.ttf -sansserif fonts/Lato-Regular.ttf
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
@@ -64,7 +68,7 @@ jobs:
           extended: true
 
       - name: Build
-        run: hugo --minify
+        run: hugo --minify --baseURL https://<><><>.github.io/cook-book
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
