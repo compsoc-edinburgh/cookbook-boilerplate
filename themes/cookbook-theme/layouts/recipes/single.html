@@ -20,10 +20,9 @@
     deployed to various different contexts, like on subdirectories (e.g. where
     the root of the cookbook lives not at / but at /cookbook).
 
-    To mitigate this, the thumbnails are stored in the same Page Bundle as the
-    recipe, so that links to each other work with just the name. This is very
-    fragile and prone to any changes with alias/custom permalinks. -->
-    <meta property="og:image" content="./{{ $thumbnail.Name }}" />
+    Unfortunately, the only solution is to set a baseURL and use a Permalink,
+    which isn't desirable but is the only solution. -->
+    <meta property="og:image" content="{{ $thumbnail.Permalink }}" />
     <meta property="og:image:alt" content="Difficulty: {{ .Page.Params.difficulties }} • Meal: {{ .Page.Params.meals }} • {{ .Summary }}" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="600" />
