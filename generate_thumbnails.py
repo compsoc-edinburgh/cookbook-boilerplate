@@ -12,7 +12,7 @@ parser = argparse.ArgumentParser(description="Generate TwitterCard images from a
 parser.add_argument("-i", "--input-dir", type=str, required=True,
                     help="top directory for the parsed and generated cook-book recipes")
 parser.add_argument("-o", "--output-dir", type=str, required=True,
-                    help="top directory for the output (should be empty or not exist)")
+                    help="top directory for the output (in most cases this is the same as -i)")
 parser.add_argument("-serif", "--serif-font", type=str, required=True,
                     help="filepath to the serif font")
 parser.add_argument("-sansserif", "--sans-serif-font", type=str, required=True,
@@ -47,11 +47,11 @@ def main():
 
 def write_image(im: Image.Image, recipe_filename: dict, out_dir: str) -> None:
     """
-    Write the Pillow image to the output directory as a PNG with the same name
-    as the recipe filename.
+    Write the Pillow image to the output Page Bundle directory as a PNG with the
+    name thumbnail.png.
     """
-    basename = os.path.splitext(os.path.basename(recipe_filename))[0]
-    im.save(os.path.join(out_dir, ".".join([basename, "png"])), format="png")
+    basename = os.path.basename(os.path.dirname(recipe_filename))
+    im.save(os.path.join(out_dir, basename, "thumbnail.png"), format="png")
 
 def get_front_matter(contents: list[str]) -> dict:
     """
