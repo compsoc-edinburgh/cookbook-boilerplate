@@ -11,12 +11,23 @@
     <meta property="og:type" content="article" />
     <meta property="og:article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z0700" }}" />
     <meta property="og:article:section" content="Recipes" />
+    {{- $thumbnail := .Resources.GetMatch "thumbnail.png" -}}
+    {{- if $thumbnail }}
+    <!-- Hugo does not translate URLs in content attributes to relative links,
+    see #8734. This may mean it won't properly work when deployed to various
+    different contexts, like on subdirectories (e.g. where the root of the
+    cookbook lives not at / but at /cookbook) -->
+    <meta property="og:image" content="{{ $thumbnail.RelPermalink }}" />
+    <meta property="og:image:alt" content="Difficulty: {{ .Page.Params.difficulties }} • Meal: {{ .Page.Params.meals }} • {{ .Summary }}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="600" />
+    {{ end -}}
     {{- $tags := .Page.Params.tags -}}
     {{/* Tags are a supposed to be arrays but just incase someone puts a string:*/}}
     {{- with $tags -}}
     {{- if not (reflect.IsSlice $tags) -}}
       {{- $tags = slice $tags -}}
-    {{- end -}}}
+    {{- end -}}
     {{- end -}}
     {{ range $val := $tags }}
     <meta property="og:article:tag" content="{{ $val }}" />
