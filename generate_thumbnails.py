@@ -42,7 +42,8 @@ def main():
         front_matter = get_front_matter(contents)
 
         if "title" in front_matter:
-            image = create_thumbnail(front_matter, serif, sansserif)
+            page_bundle = os.path.dirname(recipe)
+            image = create_thumbnail(front_matter, page_bundle, serif, sansserif)
             write_image(image, recipe, args.output_dir)
 
 def write_image(im: Image.Image, recipe_filename: dict, out_dir: str) -> None:
@@ -75,11 +76,11 @@ def get_front_matter(contents: list[str]) -> dict:
 
     return parsed
 
-def create_thumbnail(front_matter: dict, serif: str, sansserif: str) -> Image.Image:
+def create_thumbnail(front_matter: dict, page_bundle: str, serif: str, sansserif: str) -> Image.Image:
     """
-    Create an thumbnail Pillow image, load the background image if any, create the
-    heading with background (each on separate layer, then flattened in order),
-    similarly add metadata and logo.
+    Create an thumbnail Pillow image, load the background image if any (from
+    the page bundle directory), create the heading with background (each on
+    separate layer, then flattened in order), similarly add metadata and logo.
     """
     im = Image.new("RGB", (1200, 600), (255, 255, 255))
 
@@ -98,7 +99,7 @@ def create_thumbnail(front_matter: dict, serif: str, sansserif: str) -> Image.Im
         "max_lines": 3
     }
 
-    draw_bg_in_place(im, front_matter)
+    draw_bg_in_place(im, front_matter, page_bundle)
     bottom = draw_heading_in_place(im, front_matter, heading_opts)
 
     metadata_opts = {
@@ -119,20 +120,29 @@ def create_thumbnail(front_matter: dict, serif: str, sansserif: str) -> Image.Im
 
     return im
 
-def draw_bg_in_place(im: Image.Image, front_matter: dict) -> None:
+def draw_bg_in_place(im: Image.Image, front_matter: dict, page_bundle: str) -> None:
     """
     Download, scale, and draw the background (preview) image in place if it exists.
     Done in place.
     """
     if "previewimage" in front_matter:
-        bg = Image.open(requests.get(front_matter["previewimage"], stream=True).raw)
-        # Resize to fill.
-        if bg.size[0] < 1200:
-            bg = bg.resize((1200, int(1200/bg.size[0])*bg.size[1]), Image.ANTIALIAS)
-        if bg.size[1] < 600:
-            bg = bg.resize((int(600/bg.size[1])*bg.size[0], 600), Image.ANTIALIAS)
+        try:
+            if front_matter["previewimage"][:7] in ["https:/", "http://"]:
+                bg = Image.open(requests.get(front_matter["previewimage"], stream=True).raw)
+            else:
+                # load file locally
+                bg = Image.open(os.path.join(page_bundle, front_matter["previewimage"]))
+            # Resize to fill.
+            if bg.size[0] < 1200:
+                bg = bg.resize((1200, int(1200/bg.size[0])*bg.size[1]), Image.ANTIALIAS)
+            if bg.size[1] < 600:
+                bg = bg.resize((int(600/bg.size[1])*bg.size[0], 600), Image.ANTIALIAS)
 
-        im.paste(bg)
+            im.paste(bg)
+        except Exception as e:
+            print(e)
+            pass
+
 
 def draw_heading_in_place(im: Image.Image, front_matter: dict, heading_opts: dict) -> int:
     """
