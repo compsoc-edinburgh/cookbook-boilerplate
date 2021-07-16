@@ -19,11 +19,11 @@ def main():
     if not os.path.exists(args.output_dir):
         os.makedirs(args.output_dir)
 
-    page_bundles = parse_markdown(args.input_dir, args.output_dir)
+    page_bundles = parse_generate_markdown(args.input_dir, args.output_dir)
     move_images(args.input_dir, page_bundles)
     print("Done.")
 
-def parse_markdown(input_dir: str, output_dir: str) -> list[str]:
+def parse_generate_markdown(input_dir: str, output_dir: str) -> list[str]:
     """
     Parses all markdown files in the input directory and generates the output
     files. Returns the written output directories.
@@ -140,7 +140,10 @@ def split_contents(contents: list[str]) -> (dict, str, str, list[str]):
 
         result = re.match("^!\[(.+)\]\((.+)\)", line)
         if result is not None:
+            # Take the second group
             image_url = result.group(2)
+            # If there is a title ![](blah "title"), this removes it
+            image_url = image_url.split(" ")[0]
 
         if currently_fm:
             front_matter.append(line)
