@@ -249,9 +249,6 @@ hr {
 }
 
 .recipe-edit-button {
-  opacity: 0.3;
-  transition: opacity 0.07s linear;
-  
   & a {
     text-decoration: unset;
   }
@@ -259,10 +256,6 @@ hr {
   & svg {
     fill: $primary;
   }
-}
-
-article:hover .recipe-edit-button {
-  opacity: 1;
 }
 
 .recipe-keywords {
@@ -322,3 +315,4 @@ footer {
     }
   }
 }
+
