@@ -46,17 +46,22 @@ def parse_generate_markdown(input_dir: str, output_dir: str) -> list[str]:
         recipe = file_path
 
         front_matter = {}
+        recipe_filename = os.path.basename(recipe)
+        up_to_difficulty = os.path.dirname(recipe)
+        difficulty = os.path.basename(up_to_difficulty)
+        up_to_meal = os.path.dirname(up_to_difficulty)
+        meal = os.path.basename(up_to_meal)
+
         front_matter.setdefault("layout", "recipe")
-        difficulty = os.path.dirname(recipe)
-        front_matter.setdefault("difficulties", os.path.basename(difficulty))
-        meal = os.path.dirname(difficulty)
-        front_matter.setdefault("meals", os.path.basename(meal))
+        front_matter.setdefault("difficulties", difficulty)
+        front_matter.setdefault("meals", meal)
 
         # get the latest edit date from the git commit log
-        relative_path = os.path.join(os.path.basename(meal), os.path.basename(difficulty), os.path.basename(recipe))
+        relative_path = os.path.join(meal, difficulty, recipe_filename)
         git_command = ["git", "log", "-1", "--pretty=format:%cI", "--follow", "--", relative_path]
         date = subprocess.check_output(git_command, cwd=input_dir).decode("utf-8")
         front_matter.setdefault("publishdate", date)
+        front_matter.setdefault("originalpath", "/".join([meal, difficulty, recipe_filename]))
 
         # read the existing front matter (if any) and contents
         with open(recipe, "r", encoding="utf-8") as f:
