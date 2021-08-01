@@ -30,8 +30,7 @@ layouts/
 │   ├── navbar.html   <- Universal navbar contained in a <header>
 │   ├── listing.html  <- Paginator and recipe listing, requires dict as argument
 │   ├── footer.html   <- <footer> element and copyright.
-│   ├── postamble.html <- Scripts before body closes
-│   └── comments.html <- Giscus comment snippet
+│   └── postamble.html <- Scripts before body closes
 ├── recipes/
 │   ├── list.html     <- /recipes
 │   ├── list.json     <- /recipes/index.json provides a JSON api for search
@@ -41,8 +40,8 @@ layouts/
 │   ├── taxonomy.html <- /<grouping>
 │   └── term.html     <- /<grouping>/<name>
 └── _default/
-│   ├── taxonomy.html <- tags, and other taxonomies in the future
-│   ├── term.html     <- tags, and other taxonomies in the future
+    ├── taxonomy.html <- tags, and other taxonomies in the future
+    ├── term.html     <- tags, and other taxonomies in the future
     └── _markup
         └── render-link.html <- custom link renderer to open external ones in new tabs
 ```

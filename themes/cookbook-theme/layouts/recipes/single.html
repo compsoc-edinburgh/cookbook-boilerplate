@@ -87,7 +87,7 @@
             </div>
           </div>
           <!-- Recipe body -->
-          <section class="recipe-body row justify-content-center">
+          <section class="recipe-body row justify-content-center mb-5">
             <div class="col-12 col-md-10">
               {{ .Content | emojify | safeHTML }}
 
@@ -99,7 +99,6 @@
             </div>
           </section>
         </article>
-        {{ partial "comments.html" . }}
       </main>
       {{ partial "footer.html" . }}
     </div>

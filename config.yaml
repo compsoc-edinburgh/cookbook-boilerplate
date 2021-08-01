@@ -5,9 +5,7 @@ theme: "cookbook-theme"
 params:
   # slogan
   slogan: "Hey, good lookin', whatcha got cookin'?"
-  # controls where all links to GitHub link to. Comments are not controlled by
-  # this since they also require a hash ID: go into comments.html to change the
-  # repo.
+  # controls where all links to GitHub link to.
   cookbookRepo: compsoc-edinburgh/cook-book
   # 14 allergens, that recipes can use
   allergens:
