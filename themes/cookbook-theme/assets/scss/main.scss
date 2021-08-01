@@ -248,6 +248,23 @@ hr {
   top: $spacer;
 }
 
+.recipe-edit-button {
+  opacity: 0.3;
+  transition: opacity 0.07s linear;
+  
+  & a {
+    text-decoration: unset;
+  }
+
+  & svg {
+    fill: $primary;
+  }
+}
+
+article:hover .recipe-edit-button {
+  opacity: 1;
+}
+
 .recipe-keywords {
   text-transform: uppercase;
   color: $text-primary-hint;
