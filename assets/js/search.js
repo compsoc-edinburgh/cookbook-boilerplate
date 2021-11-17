@@ -339,11 +339,11 @@ function updateRecipeDOM(recipes) {
     output +=
       "<li class=\"recipe-listing-item col\">" +
         "<a href=\"." + properlyRelPermalink + "\">" +
-          "<div class=\"card h-100\" role=\"article\">" +
+          "<div class=\"card h-100 " + (recipe.params.previewimage ? "card-image" : "") + "\" role=\"article\">" +
             (recipe.params.previewimage ?
-              "<img loading=\"lazy\" src=\"" + recipe.params.previewimage + "\" class=\"card-image-top mx-1 mt-1\" alt=\"Delicious-looking image of " + escape(recipe.title) + "\" />"
+              "<img loading=\"card-img-top lazy\" src=\"" + (recipe.params.previewimage.substr(0, 4) == "http" ? "" : recipe.relPermalink) + recipe.params.previewimage + "\" class=\"card-image-top mx-1 mt-1\" alt=\"Delicious-looking image of " + escape(recipe.title) + "\" />"
               : "") +
-            "<div class=\"card-body\">" +
+            "<div class=\"card-body" + (recipe.params.previewimage ? " card-img-overlay" : "") + "\">" +
               "<span class=\"meta\">" + escape(recipe.params.meals) + "/" + escape(recipe.params.difficulties) + "</span>" +
               "<h4 class=\"display-5 mt-lg-3\">" + escape(recipe.title) + "</h2>" +
             "</div>" +

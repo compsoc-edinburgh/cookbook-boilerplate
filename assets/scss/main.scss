@@ -189,9 +189,10 @@ hr {
     img {
       height: 25vh;
       object-fit: cover;
+      transition: all 0.2s cubic-bezier(0.215, 0.610, 0.355, 1);
 
       @include media-breakpoint-only(xs) {
-          height: 20vh;
+        height: 20vh;
       }
     }
 
@@ -205,6 +206,14 @@ hr {
       color: $text-dark;
     }
 
+    &.card-image h4  {
+      color: $text-light;
+      background: $primary-darkest;
+      display: inline-block;
+      margin-top: 0.6rem !important; /*default 1rem - 0.2rem padding from h4, 0.2rem padding from meta*/
+      padding: 0.2rem 0.5rem;
+    }
+
     .meta {
       transition: color 0.2s cubic-bezier(0.215, 0.610, 0.355, 1);
       color: $text-primary-hint;
@@ -213,18 +222,29 @@ hr {
         font-size: 0.9rem;
       }
     }
+
+    &.card-image .meta {
+      color: $text-light;
+      background: $primary-darkest;
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+    }
   }
 
   &:hover .card, &:focus .card {
     /* Render the box-shadow above the item below in the listing */
     z-index: $zindex-popover;
 
-    &::before {
+    &:not(.card-image)::before {
       background-color: $secondary;
       box-shadow: 0 .5rem 1rem rgba($secondary, .7);
     }
 
-    .meta {
+    &.card-image img {
+      box-shadow: 0 .5rem 1rem rgba($secondary, .7);
+    }
+
+    &:not(.card-image) .meta {
       color: $text-dark-hint;
     }
   }
@@ -232,7 +252,15 @@ hr {
   /* Popup if reduced-motion is not set */
   @media (prefers-reduced-motion: no-preference) {
     &:hover .card, &:focus .card {
-      &::before {
+      &:not(.card-image)::before {
+        transform: scaleX(1.08) scaleY(1.1);
+
+        @include media-breakpoint-up(lg) {
+          transform: scaleX(1.17) scaleY(1.1);
+        }
+      }
+
+      &.card-image img {
         transform: scaleX(1.08) scaleY(1.1);
 
         @include media-breakpoint-up(lg) {

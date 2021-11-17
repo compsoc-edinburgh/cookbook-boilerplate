@@ -2,11 +2,15 @@
   {{ range .pages }}
     <li class="recipe-listing-item col">
       <a href="{{ .RelPermalink }}">
-        <div class="card h-100"  role="article">
+        <div class="card h-100 {{ if (isset .Params "previewimage") }}card-image{{end}}"  role="article">
           {{ if (isset .Params "previewimage") }}
-          <img loading="lazy" src="{{ .Params.previewimage }}" class="card-image-top mx-1 mt-1" alt="Delicious-looking image of {{ .Title }}" />
+            {{ if (substr .Params.previewimage 0 4) | eq "http" }}
+              <img class="card-img-top lazy" src="{{ .Params.previewimage }}" alt="Delicious-looking image of {{ .Title }}">
+            {{ else }}
+              <img class="card-img-top lazy" src="{{ .RelPermalink }}/{{ .Params.previewimage }}" alt="Delicious-looking image of {{ .Title }}">
+            {{ end }}
           {{ end }}
-          <div class="card-body">
+          <div class="card-body {{ if (isset .Params "previewimage") }}card-img-overlay{{ end }}">
             <span class="meta">{{ .Params.meals }} / {{ .Params.difficulties }}</span>
             <h4 class="display-5 mt-lg-3">{{ .Title }}</h2>
           </div>
