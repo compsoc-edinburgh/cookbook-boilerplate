@@ -24,7 +24,7 @@ params:
   # URLencoded template github new file
   templateRecipe: |
     ---
-    keywords: [babylonian, fresh, vegetarian, thisisoptional]
+    tags: [babylonian, fresh, vegetarian, thisisoptional]
     allergens: [milk, gluten, celery, crustaceans, eggs, fish, lupin, milk, molluscs, mustard, nuts, peanuts, sesame_seeds, soya, sulphites]
     serves: 30 cookies
     prep time: 15 mins
