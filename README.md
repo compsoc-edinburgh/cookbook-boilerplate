@@ -1,10 +1,13 @@
 # CompSoc Cookbook Boilerplate
 
-In order to reduce the effort of maintaining/contributing/editing the [cookbook repository](https://github.com/compsoc-edinburgh/cook-book), all the website related things are put in this repository.
+In order to separate the data and its view (and to reduce the bar of contribution), the CompSoc cookbook is separated into two parts:
 
-The cook-book is placed in a Git submodule. Its tag (SHA1) is pinned to an older version, but this is of no concern because it is updatable in the workflow with `git submodule update --remote`, as shown in the example workflow below.
+- the [cookbook repository](https://github.com/compsoc-edinburgh/cook-book) with recipe data in Markdown
+- this repo that controls website & thumbnail generation using Hugo.
 
-This website itself is built with Hugo. Anyone is welcome to contribute, and more info on contribution can be found in the `themes` directory.
+The cook-book is placed in a Git submodule of this repo. Its tag (SHA1) is pinned to an older version, but this is not important since it gets updated in the workflow with `git submodule update --remote`, as shown in the example workflow below.
+
+This website uses Hugo. Anyone is welcome to contribute, and if you want to change how the website looks/behaves, check out the `CONTRIBUTING` file.
 
 ## Local setup
 
@@ -12,7 +15,7 @@ The process of testing and developing locally is very similar to what the GitHub
 
 Specifically, what you need to for set up is recursively clone (`git clone --recurse-submodules`) the repo & update the recipe repo to latest (`git submodule update --remote`).
 
-Then, developing the converter script is simply running the python script. Developing the theme is with `hugo server`.
+Then, running the converter script is simply running the python script. Building the website is with `hugo server`.
 
 ## Flow
 
@@ -20,8 +23,9 @@ All of the building happens inside a GitHub action workflow within the cookbook,
 
 1. New commit is pushed to the cookbook.
 2. This repo is checked out in a GitHub action, and then the cookbook submodule into `/content_raw`.
-3. The directory structure is translated into front matter and copied into `/content/recipes` using `parse_content.py`
-4. `hugo` is called to build the site, and the `/public` directory is uploaded as GitHub Pages.
+3. `parse_content.py` runs, translating the directory structure into front matter and copying recipes into `/content/recipes`
+4. `generate_thumbnails.py` runs, creating thumbnails for all recipes and placing them next to them in `/content/recipes`
+5. `hugo` is called to build the site, and the `/public` directory is uploaded as GitHub Pages.
 
 `cook-book/.github/workflows/hugo.yml`
 ```

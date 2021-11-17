@@ -1,6 +1,6 @@
-# The Theme
+# Contributing to the design
 
-Hi! This is the boilerplate/template/theme that powers how CompSoc Cookbook looks.
+Hi! This is the repo that powers how CompSoc Cookbook looks.
 Feel free to contribute!
 
 ## Explanations

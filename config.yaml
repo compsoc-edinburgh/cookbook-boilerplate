@@ -1,7 +1,5 @@
 title: "CompSoc Cookbook"
 languageCode: "en-us"
-theme: "cookbook-theme"
-
 params:
   # slogan
   slogan: "Hey, good lookin', whatcha got cookin'?"
