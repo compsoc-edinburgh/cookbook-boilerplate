@@ -144,7 +144,7 @@ def split_contents(contents: list[str]) -> tuple[dict, str, str, list[str]]:
             continue
 
         result = re.match("^!\[(.+)\]\((.+)\)", line)
-        if result is not None:
+        if result is not None and image_url is None:
             # Take the second group
             image_url = result.group(2)
             # If there is a title ![](blah "title"), this removes it
