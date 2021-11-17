@@ -42,9 +42,13 @@ def main():
         front_matter = get_front_matter(contents)
 
         if "title" in front_matter:
+            print("Creating thumbnail for " + recipe + "... ", end="", flush=True)
             page_bundle = os.path.dirname(recipe)
             image = create_thumbnail(front_matter, page_bundle, serif, sansserif)
             write_image(image, recipe, args.output_dir)
+            print("OK")
+
+    print("Done.")
 
 def write_image(im: Image.Image, recipe_filename: dict, out_dir: str) -> None:
     """

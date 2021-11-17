@@ -42,7 +42,7 @@ def parse_generate_markdown(input_dir: str, output_dir: str) -> list[str]:
         if "LICENSE" in file_path or "README" in file_path:
             continue
 
-        print("Parsing " + file_path + "... ", end="")
+        print("Parsing " + file_path + "... ", end="", flush=True)
         recipe = file_path
 
         front_matter = {}
@@ -121,7 +121,7 @@ def move_images(input_dir: str, page_bundles: list[str]) -> None:
             shutil.copyfile(file_path, os.path.join(page_bundle, os.path.basename(file_path)))
         print("Copied")
 
-def split_contents(contents: list[str]) -> (dict, str, str, list[str]):
+def split_contents(contents: list[str]) -> tuple[dict, str, str, list[str]]:
     """
     Split a list of all lines in a file into:
       front matter dictionary
