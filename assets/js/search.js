@@ -335,17 +335,24 @@ function updateRecipeDOM(recipes) {
     // a href attribute. It also absolutely wrecks havoc with subdirectory
     // base URLs like GitHub pages (past related issues #7714, #2194, #8078)
     // See most recent issue highlighting exactly this: #8734.
+    // The following line therefore makes sure that anything that is supposed to
+    // be at the root doesn't begin with / but with ./
     let properlyRelPermalink = "." + recipe.relPermalink;
+
+    let recipeImage = recipe.params.previewimage
     output +=
       "<li class=\"recipe-listing-item col\">" +
+        // prepend link with another dot so it resolves from root (assumes
+        // search is at /search)
         "<a href=\"." + properlyRelPermalink + "\">" +
-          "<div class=\"card h-100 " + (recipe.params.previewimage ? "card-image" : "") + "\" role=\"article\">" +
-            (recipe.params.previewimage ?
-              "<img loading=\"card-img-top lazy\" src=\"" + (recipe.params.previewimage.substr(0, 4) == "http" ? "" : recipe.relPermalink) + recipe.params.previewimage + "\" class=\"card-image-top mx-1 mt-1\" alt=\"Delicious-looking image of " + escape(recipe.title) + "\" />"
+          "<div class=\"card h-100 " + (recipeImage ? "card-image" : "") + "\" role=\"article\">" +
+            (recipeImage ?
+              // handle the case where images are local or on the web
+              "<img loading=\"card-img-top lazy\" src=\"" + (recipeImage.substr(0, 4) == "http" ? "" : recipe.relPermalink) + recipeImage + "\" class=\"card-image-top mx-1 mt-1\" alt=\"Delicious-looking image of " + escape(recipe.title) + "\" />"
               : "") +
-            "<div class=\"card-body" + (recipe.params.previewimage ? " card-img-overlay" : "") + "\">" +
+            "<div class=\"card-body" + (recipeImage ? " card-img-overlay" : "") + "\">" +
               "<span class=\"meta\">" + escape(recipe.params.meals) + "/" + escape(recipe.params.difficulties) + "</span>" +
-              "<h4 class=\"display-5 mt-lg-3\">" + escape(recipe.title) + "</h2>" +
+              "<h4 class=\"display-5 mt-lg-3\">" + escape(recipe.title) + "</h4>" +
             "</div>" +
           "</div>" +
         "</a>" +
