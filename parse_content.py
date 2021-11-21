@@ -6,11 +6,24 @@ import subprocess
 import yaml
 import re
 
-parser = argparse.ArgumentParser(description="Convert the cook-book directory structure to Hugo structure.")
-parser.add_argument("-i", "--input-dir", type=str, required=True,
-                    help="top directory for the cook-book recipes")
-parser.add_argument("-o", "--output-dir", type=str, required=True,
-                    help="top directory for the output (should be empty)")
+parser = argparse.ArgumentParser(
+    description="Convert the cook-book directory structure to Hugo structure."
+)
+parser.add_argument(
+    "-i",
+    "--input-dir",
+    type=str,
+    required=True,
+    help="top directory for the cook-book recipes",
+)
+parser.add_argument(
+    "-o",
+    "--output-dir",
+    type=str,
+    required=True,
+    help="top directory for the output (should be empty)",
+)
+
 
 def main():
     args = parser.parse_args()
@@ -19,26 +32,36 @@ def main():
     if not os.path.exists(args.output_dir):
         os.makedirs(args.output_dir)
 
-    parsed_contents: list[tuple[dict, list[str]]] = parse_all_markdown_files(args.input_dir)
-    page_bundle_names = [write_to_page_bundle(args.output_dir, *parsed_content) for parsed_content in parsed_contents]
+    parsed_contents: list[tuple[dict, list[str]]] = parse_all_markdown_files(
+        args.input_dir
+    )
+    page_bundle_names: list[str] = [
+        write_to_page_bundle(args.output_dir, *parsed_content)
+        for parsed_content in parsed_contents
+    ]
     move_images(args.input_dir, page_bundle_names)
     print("Done.")
+
 
 def get_all_markdown_files(input_dir: str) -> list[str]:
     """
     Get all markdown files within the input directory.
     """
     # get all files within the input dir
-    all_markdown = [y for x in os.walk(input_dir) for y in glob(os.path.join(x[0], "*.md"))]
+    all_markdown = [
+        y for x in os.walk(input_dir) for y in glob(os.path.join(x[0], "*.md"))
+    ]
 
     return [
         file_path
-        for file_path
-        in all_markdown
-        if (os.path.isfile(file_path) and
-            "LICENSE" not in file_path and
-            "README" not in file_path)
+        for file_path in all_markdown
+        if (
+            os.path.isfile(file_path)
+            and "LICENSE" not in file_path
+            and "README" not in file_path
+        )
     ]
+
 
 def directory_structure_to_front_matter(file_path: str) -> dict[str, str]:
     """
@@ -56,16 +79,24 @@ def directory_structure_to_front_matter(file_path: str) -> dict[str, str]:
         "difficulties": difficulty,
         "meals": meal,
         "originalfilename": recipe_filename,
-        "originalpath": os.path.join(meal, difficulty, recipe_filename)
+        "originalpath": os.path.join(meal, difficulty, recipe_filename),
     }
 
+
 def git_date_to_front_matter(directory: str, rel_file_path: str) -> dict[str, str]:
-    git_command = ["git", "log", "-1", "--pretty=format:%cI", "--follow", "--", rel_file_path]
+    git_command = [
+        "git",
+        "log",
+        "-1",
+        "--pretty=format:%cI",
+        "--follow",
+        "--",
+        rel_file_path,
+    ]
     date = subprocess.check_output(git_command, cwd=directory).decode("utf-8")
 
-    return {
-        "publishdate": date
-	}
+    return {"publishdate": date}
+
 
 def parse_all_markdown_files(input_dir: str) -> tuple[dict, list[str]]:
     """
@@ -98,7 +129,10 @@ def parse_all_markdown_files(input_dir: str) -> tuple[dict, list[str]]:
 
     return parsed_contents
 
-def write_to_page_bundle(output_dir: str, front_matter: dict, content: list[str]) -> str:
+
+def write_to_page_bundle(
+    output_dir: str, front_matter: dict, content: list[str]
+) -> str:
     """
     Write everything to a new file called index.md, within a folder
     titled with the recipe filename. This creates a Hugo page bundle, so
@@ -115,6 +149,7 @@ def write_to_page_bundle(output_dir: str, front_matter: dict, content: list[str]
         f.writelines(content)
 
     return page_bundle_name
+
 
 def move_images(input_dir: str, page_bundles: list[str]) -> None:
     """
@@ -137,23 +172,29 @@ def move_images(input_dir: str, page_bundles: list[str]) -> None:
             continue
 
         # filter only images
-        if file_path[-4:] not in [".png", ".jpg", ".gif"] and file_path[-5:] not in [".jpeg", ".webp"]:
+        if file_path[-4:] not in [".png", ".jpg", ".gif"] and file_path[-5:] not in [
+            ".jpeg",
+            ".webp",
+        ]:
             continue
 
         print("Copying " + file_path + "... ", end="")
         for page_bundle in page_bundles:
-            shutil.copyfile(file_path, os.path.join(page_bundle, os.path.basename(file_path)))
+            shutil.copyfile(
+                file_path, os.path.join(page_bundle, os.path.basename(file_path))
+            )
         print("Copied")
 
-def parse_front_matter_and_content(contents: list[str]) -> tuple[dict[str, str], list[str]]:
+
+def parse_front_matter_and_content(
+    contents: list[str],
+) -> tuple[dict[str, str], list[str]]:
     """
     Parse a list of all lines in a file into:
       front matter (merged result of existing ones and title + preview image)
       all markdown lines in the content apart from the recipe name
     """
-    front_matter = {
-        "title": "<unnamed>"
-    }
+    front_matter = {"title": "<unnamed>"}
     front_matter_lines = []
     markdown_content = []
 
@@ -190,6 +231,7 @@ def parse_front_matter_and_content(contents: list[str]) -> tuple[dict[str, str],
         meaningful_stuff = contents
 
     return (front_matter, markdown_content)
+
 
 if __name__ == "__main__":
     main()
