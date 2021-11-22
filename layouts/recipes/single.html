@@ -66,7 +66,7 @@
               {{- end -}}
               {{- range $key, $val := .Page.Params -}}
               {{/* Display all custom params, excluding Hugo defaults and ones already shown */}}
-              {{- $ignored := (slice "tags" "allergens" "meals" "difficulties" "iscjklanguage" "draft" "layout" "title" "date" "publishdate" "lastmod" "previewimage" "originalpath") -}}
+              {{- $ignored := (slice "tags" "allergens" "meals" "difficulties" "iscjklanguage" "draft" "layout" "title" "date" "publishdate" "lastmod" "previewimage" "originalpath" "originalfilename") -}}
               {{- if not (in $ignored $key) -}}
               <div class="recipe-property text-center mx-3">
                 {{- $key | title -}}<br>
