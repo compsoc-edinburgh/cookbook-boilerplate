@@ -26,6 +26,13 @@
   color: $text-primary;
 }
 
+.recipe-property.recipe-allergens b {
+  margin-right: 2rem;
+  &:last-child {
+    margin: 0 !important;
+  }
+}
+
 .recipe-body img {
   max-width: 100%;
   /* center the image with margins. ideally this should be done by setting

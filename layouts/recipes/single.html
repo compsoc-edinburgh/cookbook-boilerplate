@@ -59,9 +59,9 @@
             <h1 class="display-2 mb-4 text-center">{{ .Title }}</h1>
             <div class="recipe-properties d-flex">
               {{ with .Page.Params.allergens -}}
-              <div class="recipe-property text-center mx-3">
+              <div class="recipe-property recipe-allergens text-center mx-3">
                 Contains<br>
-                <b>{{ range $key := . }}{{ $key }}{{ end }}</b>
+                {{ range $key := . }}<b>{{ $key }}</b>{{ end }}
               </div>
               {{- end -}}
               {{- range $key, $val := .Page.Params -}}
